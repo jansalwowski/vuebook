@@ -36,8 +36,8 @@
         data() {
             return {
                 form: new Form({
-                    username: 'jan.salwowski@o2.pl',
-                    password: 'james123'
+                    username: '',
+                    password: ''
                 }),
                 auth: auth,
                 error: null
@@ -54,7 +54,7 @@
                         if (loggedIn) {
                             this.error = null;
 //                            this.$router.replace(this.$route.query.redirect || '/')
-                            this.$router.replace('/')
+                            this.$router.replace('/');
                         } else {
                             this.error = errors;
                         }

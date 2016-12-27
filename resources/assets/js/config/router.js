@@ -12,12 +12,12 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     if (to.path == '/logout') {
         auth.logout();
-        next('/login');
+        next('/welcome');
     }
 
     if (to.matched.some(record => record.meta.auth) && auth.guest()) {
         next({
-            path: '/login',
+            path: '/welcome',
             query: {redirect: to.fullPath}
         });
     } else if (to.matched.some(record => record.meta.guest) && auth.check()) {

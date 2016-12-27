@@ -1,4 +1,5 @@
 window.Vue = require('vue');
+import {CLIENT_ID, CLIENT_SECRET} from '../.env';
 
 export default class AuthServiceProvider {
     constructor() {
@@ -27,8 +28,8 @@ export default class AuthServiceProvider {
     login($context, username, password, callback) {
         const data = {
             'grant_type': 'password',
-            'client_id': 2,
-            'client_secret': 'Ec3R9dcjlHc1I72zoI4tMoi6DIhuEKojSLi5aX0q',
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET,
             'username': username,
             'password': password,
             'scope': ''

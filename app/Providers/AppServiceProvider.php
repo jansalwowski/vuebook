@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         User::observe(UserObserver::class);
+
+
+        Validator::extend('username', function ($attribute, $value, $parameters, $validator) {
+            return preg_match('/^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$/', $value);
+        });
     }
 
     /**

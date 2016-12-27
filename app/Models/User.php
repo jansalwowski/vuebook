@@ -20,6 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
         'birthday',
@@ -36,8 +37,6 @@ class User extends Authenticatable
         'password', 'remember_token', 'verified_at',
     ];
 
-//    protected $appends = ['is_verified'];
-
     public function isVerifiedAttribute() : bool
     {
         return $this->isVerified();
@@ -45,7 +44,7 @@ class User extends Authenticatable
 
     public function isVerified() : bool
     {
-        return null !== $this->verifiedAt;
+        return $this->verified_at instanceof Carbon;
     }
 
     public function posts()
@@ -86,7 +85,6 @@ class User extends Authenticatable
         return $user;
     }
 
-
     public function likes()
     {
         return $this->hasMany(Like::class);
@@ -94,7 +92,7 @@ class User extends Authenticatable
 
     public function like(Likeable $likeable)
     {
-        $this->likes()->save($likeable);
+        $likeable->like($this);
     }
 
     public function unlike(Likeable $likeable)
