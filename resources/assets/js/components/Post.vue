@@ -37,7 +37,7 @@
     </div>
 </template>
 
-<style lang="sass">
+<style lang="scss">
     .post {
 
         &__top {
