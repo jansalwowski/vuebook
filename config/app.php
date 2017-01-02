@@ -169,6 +169,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
 //        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         //
 
@@ -230,6 +231,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
 
+        /* Installed Facades */
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

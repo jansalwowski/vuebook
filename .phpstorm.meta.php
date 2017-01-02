@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2016-12-25.
+    * Generated on 2016-12-31.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -46,6 +46,9 @@ namespace PHPSTORM_META {
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
+            'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
+            'translation.loader' instanceof \Illuminate\Translation\FileLoader,
+            'translator' instanceof \Illuminate\Translation\Translator,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,
             'Illuminate\Bus\Dispatcher' instanceof \Illuminate\Bus\Dispatcher,
@@ -123,9 +126,6 @@ namespace PHPSTORM_META {
             'queue.failer' instanceof \Illuminate\Queue\Failed\DatabaseFailedJobProvider,
             'auth.password' instanceof \Illuminate\Auth\Passwords\PasswordBrokerManager,
             'auth.password.broker' instanceof \Illuminate\Auth\Passwords\PasswordBroker,
-            'translation.loader' instanceof \Illuminate\Translation\FileLoader,
-            'translator' instanceof \Illuminate\Translation\Translator,
-            'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
         ],
         \Illuminate\Contracts\Container\Container::make('') => [
             '' == '@',
@@ -164,6 +164,9 @@ namespace PHPSTORM_META {
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
+            'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
+            'translation.loader' instanceof \Illuminate\Translation\FileLoader,
+            'translator' instanceof \Illuminate\Translation\Translator,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,
             'Illuminate\Bus\Dispatcher' instanceof \Illuminate\Bus\Dispatcher,
@@ -241,9 +244,6 @@ namespace PHPSTORM_META {
             'queue.failer' instanceof \Illuminate\Queue\Failed\DatabaseFailedJobProvider,
             'auth.password' instanceof \Illuminate\Auth\Passwords\PasswordBrokerManager,
             'auth.password.broker' instanceof \Illuminate\Auth\Passwords\PasswordBroker,
-            'translation.loader' instanceof \Illuminate\Translation\FileLoader,
-            'translator' instanceof \Illuminate\Translation\Translator,
-            'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
         ],
         \App::make('') => [
             '' == '@',
@@ -282,6 +282,9 @@ namespace PHPSTORM_META {
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
+            'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
+            'translation.loader' instanceof \Illuminate\Translation\FileLoader,
+            'translator' instanceof \Illuminate\Translation\Translator,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,
             'Illuminate\Bus\Dispatcher' instanceof \Illuminate\Bus\Dispatcher,
@@ -359,9 +362,6 @@ namespace PHPSTORM_META {
             'queue.failer' instanceof \Illuminate\Queue\Failed\DatabaseFailedJobProvider,
             'auth.password' instanceof \Illuminate\Auth\Passwords\PasswordBrokerManager,
             'auth.password.broker' instanceof \Illuminate\Auth\Passwords\PasswordBroker,
-            'translation.loader' instanceof \Illuminate\Translation\FileLoader,
-            'translator' instanceof \Illuminate\Translation\Translator,
-            'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
         ],
         \app('') => [
             '' == '@',
@@ -400,6 +400,9 @@ namespace PHPSTORM_META {
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
+            'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
+            'translation.loader' instanceof \Illuminate\Translation\FileLoader,
+            'translator' instanceof \Illuminate\Translation\Translator,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,
             'Illuminate\Bus\Dispatcher' instanceof \Illuminate\Bus\Dispatcher,
@@ -477,9 +480,6 @@ namespace PHPSTORM_META {
             'queue.failer' instanceof \Illuminate\Queue\Failed\DatabaseFailedJobProvider,
             'auth.password' instanceof \Illuminate\Auth\Passwords\PasswordBrokerManager,
             'auth.password.broker' instanceof \Illuminate\Auth\Passwords\PasswordBroker,
-            'translation.loader' instanceof \Illuminate\Translation\FileLoader,
-            'translator' instanceof \Illuminate\Translation\Translator,
-            'validation.presence' instanceof \Illuminate\Validation\DatabasePresenceVerifier,
         ],
     ];
 }

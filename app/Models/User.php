@@ -99,4 +99,14 @@ class User extends Authenticatable
     {
         $likeable->unlike($this);
     }
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
+
+    public function addPhoto(Photo $photo)
+    {
+        return $this->photos()->save($photo);
+    }
 }

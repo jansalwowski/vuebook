@@ -11,6 +11,9 @@
             </div>
 
             <div class="col-md-10">
+
+                <avatar-form></avatar-form>
+
                 <create-post-panel></create-post-panel>
 
                 <hr>
@@ -31,6 +34,7 @@
 <script>
     import CreatePostPanel from '../components/CreatePostPanel.vue';
     import Post from '../components/Post.vue';
+    import AvatarForm from '../components/AvatarForm.vue';
 
     export default {
         data() {
@@ -67,7 +71,8 @@
 
         components: {
             CreatePostPanel,
-            Post
+            Post,
+            AvatarForm
         }
     }
 </script>

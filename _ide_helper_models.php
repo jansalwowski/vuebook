@@ -57,6 +57,27 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Photo
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $path
+ * @property string $deleted_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePath($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereUpdatedAt($value)
+ */
+	class Photo extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Post
  *
  * @property int $id
@@ -72,6 +93,7 @@ namespace App\Models{
  * @property-read \App\Models\User $target
  * @property-read mixed $was_edited
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Post whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Post whereBody($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Post whereUserId($value)
@@ -91,10 +113,12 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
+ * @property string $username
  * @property string $email
  * @property string $password
  * @property string $remember_token
  * @property string $birthday
+ * @property string $avatar
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $verified_at
@@ -102,6 +126,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Photo[] $photos
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $readNotifications
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $unreadNotifications
@@ -109,10 +134,12 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereEmail($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePassword($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereBirthday($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereAvatar($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereVerifiedAt($value)

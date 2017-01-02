@@ -62,4 +62,12 @@ abstract class ApiController extends Controller
     {
         $this->response['status_code'] = $status;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function formatErrors(Validator $validator)
+    {
+        return $validator->errors()->all();
+    }
 }

@@ -17,6 +17,8 @@ Route::post('register', 'RegistrationController@store');
 Route::get('/user', 'AuthController@index')->middleware('auth:api');
 
 Route::get('/users/{username}', 'Users\UsersController@show');
+Route::post('/avatars', 'Images\AvatarsController@store')->middleware('auth:api');
+//Route::post('/avatars', 'Images\AvatarsController@store');
 
 Route::group(['prefix' => 'posts', 'name' => 'posts'], function () {
     Route::get('', 'PostsController@index');

@@ -14,6 +14,7 @@ class TestUserSeeder extends Seeder
         $user = new \App\Models\User();
 
         $user->name = 'Jan Salwowski';
+        $user->username = 'jansalwowski';
         $user->password = bcrypt('janek123');
         $user->birthday = \Carbon\Carbon::createFromDate(1994, 10, 27);
         $user->email = 'jan.salwowski@o2.pl';

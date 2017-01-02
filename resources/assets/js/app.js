@@ -5,10 +5,12 @@ require('bootstrap-sass');
 
 import Vue from 'vue';
 import VueResource from 'vue-resource';
+import InfiniteScroll from 'vue-infinite-scroll';
 import {sync} from 'vuex-router-sync';
 import App from './components/App.vue';
 
 Vue.use(VueResource);
+Vue.use(InfiniteScroll);
 
 Vue.http.interceptors.push((request, next) => {
     request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
