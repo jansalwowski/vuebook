@@ -37,6 +37,16 @@ class User extends Authenticatable
         'password', 'remember_token', 'verified_at',
     ];
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
     public function isVerifiedAttribute() : bool
     {
         return $this->isVerified();

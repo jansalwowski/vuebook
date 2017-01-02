@@ -8,5 +8,5 @@ export default [
     {path: '/welcome', name: 'home', component: HomePage, meta:{guest: true}},
     {path: '/login', component: LoginPage, meta: {guest: true}},
     {path: '/logout', meta: {auth: true}},
-    {path: '/:slug', name: 'user', component: UserPage}
+    {path: '/:username', name: 'user', component: UserPage}
 ]

@@ -35,25 +35,39 @@
         </div>
 
         <div class="user__main">
-            <user-wall :user="user"></user-wall>
+            <user-wall v-if="user" :user="user"></user-wall>
         </div>
 
     </div>
 </template>
 
-<style>
-
-</style>
-
-<script>
+<script type="text/babel">
     import UserWall from '../components/UserWall.vue';
 
     export default {
         data() {
             return {
-                user: {}
+                username: this.$route.params.username,
+                user: null
             };
         },
+
+        created() {
+            this.fetchUser();
+        },
+
+        methods: {
+            fetchUser() {
+                this.$http.get('users/' + this.username)
+                    .then(response => {
+                        this.user = response.body.user;
+                    })
+                    .catch(response => {
+                        console.log(response);
+                    });
+            }
+        },
+
         components: {UserWall}
     }
 </script>
