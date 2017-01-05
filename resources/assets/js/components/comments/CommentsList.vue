@@ -22,7 +22,7 @@
             };
         },
 
-        props: ['postId'],
+        props: ['id'],
 
         methods: {
             fetchComments() {

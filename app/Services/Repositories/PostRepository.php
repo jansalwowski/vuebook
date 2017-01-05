@@ -19,20 +19,25 @@ class PostRepository
     /**
      * @return Post[]
      */
-    public function getUserPosts(User $user, int $lastId = null): Collection
+    public function getUserWallPosts(User $user, int $lastId = null): Collection
     {
         // user_id = my , target_id = null || my
         // user_id != my , target_id = my
-        $query = Post::latest()
+        $query = Post::query()
+            ->with(['user', 'target'])
+            ->withCount(['likes', 'comments'])
             ->where(function (Builder $q) use ($user) {
                 $q
                     ->where('target_id', $user->id)
                     ->orWhere('user_id', $user->id);
             })
             ->limit(self::DEFAULT_LIMIT)
-            ->when($lastId, function (Builder $q) use ($lastId) {
-                $q->where('id', '<', $lastId);
-            });
+            ->orderBy('id', 'DESC');
+
+
+        if ($lastId !== null && $lastId > 0) {
+            $query->where('id', '<', $lastId);
+        }
 
         return $query->get();
     }
@@ -40,16 +45,14 @@ class PostRepository
     /**
      * @return Post[]
      */
-    public function getWallPosts(User $user, int $lastId = null): Collection
+    public function getMainWallPosts(User $user, int $lastId = null): Collection
     {
 //        $friendsIds = $user->friends()->pluck('id');
         $friendsIds = [];
 
         $query = Post::query()
-            ->with('user')
-            ->with('target')
-            ->withCount('likes')
-            ->withCount('comments')
+            ->with(['user', 'target'])
+            ->withCount(['likes', 'comments'])
             ->where(function (Builder $q) use ($user, $friendsIds) {
                 $q
                     ->where('user_id', $user->id)

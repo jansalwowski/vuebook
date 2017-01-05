@@ -9,6 +9,7 @@
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
+            'baseUrl' => url('/'),
         ]); ?>
     </script>
 </head>

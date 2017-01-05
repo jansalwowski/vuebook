@@ -89,9 +89,10 @@
 
                 options.directionOfJumping = this.directionOfJumping;
 
-                let toast = new Toast(message, options);
-
-                this.addToast(toast);
+                this.addToast({
+                    message: message,
+                    options: options
+                });
             },
 
 

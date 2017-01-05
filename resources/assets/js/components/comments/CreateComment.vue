@@ -30,7 +30,7 @@
         methods: {
             submit() {
                 let data = this.form.getData();
-                data.commentable_id = this.postId;
+                data.commentable_id = this.id;
                 data.commentable_type = 'post';
 
 

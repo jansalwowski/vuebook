@@ -1,84 +1,102 @@
 <template>
     <div>
+        <create-post-panel :target="user"></create-post-panel>
+
+        <hr>
+
         <post v-for="post in posts" :post="post"></post>
 
-        <infinite-loading :on-infinite="loadMore" ref="infiniteLoading"></infinite-loading>
+        <infinite-loading :on-infinite="loadMore" ref="infiniteLoading" v-show="showInfiniteScroll"></infinite-loading>
     </div>
 </template>
-
-<style>
-
-</style>
 
 <script type="text/babel">
     import Post from './Post.vue';
     import InfiniteLoading from 'vue-infinite-loading';
-    import {mapActions} from 'vuex'; import {Toast} from "../Models/Toast";
+    import {mapActions} from 'vuex';
+    import {Toast} from "../Models/Toast";
+    import CreatePostPanel from '../components/CreatePostPanel.vue';
 
     export default {
         data() {
             return {
-                posts: [],
                 lastId: null,
                 firstLoad: true,
                 allLoaded: false
             };
         },
 
+        computed: {
+            posts() {
+                return this.$store.state.posts.posts;
+            },
+
+            showInfiniteScroll() {
+                return !this.firstLoad && !this.allLoaded;
+            }
+        },
+
         created() {
+            this.clearPosts();
             this.fetchPosts();
         },
 
         methods: {
             ...mapActions([
-                'addToast'
+                'addToast',
+                'getPosts',
+                'clearPosts'
             ]),
 
             fetchPosts() {
-                let url = this.user ? this.user.username + '/wall' : 'wall';
-
-                this.$http.get(url, {params: {lastId: this.lastId}})
-                    .then((response) => {
-                    let newPosts = response.body.posts;
-
-                    this.loadNewPosts(newPosts);
-                })
-            .catch((response) => {
-                    if (typeof response.body == 'string') {
-                        this.addToast(
-                            new Toast(response.body, {theme: 'error'})
-                        );
+                let data = {
+                    username: this.user ? this.user.username : null,
+                    lastId: this.lastId,
+                    onSuccess: (response) => {
+                        this.loadNewPosts(response.body.posts);
+                    },
+                    onFailure: (response) => {
+                        this.loadingFailed(response);
                     }
+                };
 
-                    if (response.status == 429) {
-                        setTimeout(() => {
-                            this.loaded();
-                        }, 10000);
-                    } else {
-                        this.loaded();
-                    }
-
-                });
+                this.getPosts(data);
             },
 
             loadNewPosts(posts) {
-                if (posts.length > 0) {
-                    this.posts = this.posts.concat(posts);
-                    this.lastId = posts[posts.length - 1].id;
+                if (this.firstLoad) {
+                    this.firstLoad = false;
+                }
 
-                    if (this.firstLoad) {
-                        this.firstLoad = false;
-                    }
+                if (posts.length > 0) {
+                    this.lastId = posts[posts.length - 1].id;
 
                     this.loaded();
                 } else {
                     this.allLoaded = true;
-                    this.$broadcast('$InfiniteLoading:complete');
+                    this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete');
+                }
+            },
+
+            loadingFailed(response) {
+                if (typeof response.body == 'string') {
+                    this.addToast({
+                        message:response.body,
+                        type: 'error'
+                    });
+                }
+
+                if (response.status == 429) {
+                    setTimeout(() => {
+                        this.loaded();
+                    }, 10000);
+                } else {
+                    this.loaded();
                 }
             },
 
             loadMore() {
-                if (!this.firstLoad && !this.allLoaded) {
+                if (this.showInfiniteScroll) {
                     this.fetchPosts();
                 }
             },
@@ -91,6 +109,7 @@
         props: ['user'],
         components: {
             Post,
+            CreatePostPanel,
             InfiniteLoading
         }
     }

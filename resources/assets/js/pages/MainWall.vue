@@ -11,11 +11,6 @@
             </div>
 
             <div class="col-md-10">
-
-                <create-post-panel></create-post-panel>
-
-                <hr>
-
                 <user-wall></user-wall>
             </div>
         </div>
@@ -24,12 +19,10 @@
 
 
 <script type="text/babel">
-    import CreatePostPanel from '../components/CreatePostPanel.vue';
     import UserWall from '../components/UserWall.vue';
 
     export default {
         components: {
-            CreatePostPanel,
             UserWall
         }
     }

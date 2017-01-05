@@ -7,7 +7,7 @@ export class Toast {
         };
         this.message = message;
         this.options = Object.assign(this.defaultOptions, options);
-        // this.createdAt = new Date();
+        this.createdAt = new Date();
     }
 
     getType() {

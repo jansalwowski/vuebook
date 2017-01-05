@@ -143,7 +143,7 @@
         },
 
         detached() {
-            clearTimeout(this.timerDestroy)
+            clearTimeout(this.timerDestroy);
         },
 
         methods: {

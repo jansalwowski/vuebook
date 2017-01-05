@@ -37,6 +37,7 @@ class RegistrationController extends ApiController
     {
         $user = User::register([
             'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'birthday' => '1994.10.27'

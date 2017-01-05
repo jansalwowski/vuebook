@@ -30,8 +30,11 @@ class PostsController extends ApiController
         $post = new Post($postData);
 
         $this->user->addPost($post);
+        $post->load(['user', 'target']);
+        $post->comments_count = 0;
+        $post->likes_count = 0;
 
-        return $this->responseSuccess(['past' => $post]);
+        return $this->responseSuccess(['post' => $post]);
     }
 
     public function show(Post $post)
@@ -41,9 +44,9 @@ class PostsController extends ApiController
 
     public function update(Request $request, Post $post) : Response
     {
-        $post->update($request->all());
+        $post->update($request->only('body'));
 
-        return $this->responseSuccess(['past' => $post]);
+        return $this->responseSuccess(['post' => $post]);
     }
 
     public function destroy(Post $post) : Response

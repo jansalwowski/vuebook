@@ -16,9 +16,14 @@ use Illuminate\Http\Request;
 Route::post('register', 'RegistrationController@store');
 Route::get('/user', 'AuthController@index')->middleware('auth:api');
 
+
+Route::get('wall', 'Users\WallController@index')->name('mainwall')->middleware('auth:api');
+Route::get('{user}/wall', 'Users\WallController@show')->name('userwall')->middleware('auth:api');
+Route::get('/users/search', 'Users\UsersSearchController@index');
 Route::get('/users/{user}', 'Users\UsersController@show');
 Route::post('/avatars', 'Images\AvatarsController@store')->middleware('auth:api');
 //Route::post('/avatars', 'Images\AvatarsController@store');
+Route::post('/crop', 'Images\CropController@store');
 
 Route::group(['prefix' => 'posts', 'name' => 'posts'], function () {
     Route::get('', 'PostsController@index');
@@ -50,5 +55,3 @@ Route::group(['prefix' => 'comments', 'name' => 'comments'], function () {
         Route::delete('', 'CommentLikesController@destroy')->name('.delete')->middleware('auth:api');
     });
 });
-
-Route::get('wall', 'WallController@index')->name('wall')->middleware('auth:api');

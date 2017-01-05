@@ -1,9 +1,8 @@
 <template>
     <div>
-        <div :class="{'without-nav': auth.guest()}">
-            <navbar v-if="auth.check()"></navbar>
+        <div :class="{'without-nav': guest}">
+            <navbar v-if="check"></navbar>
 
-            <button type="button" name="button" @click="showTime">SHOW TIME</button>
             <div class="content">
                 <router-view></router-view>
             </div>
@@ -12,6 +11,8 @@
         </div>
 
         <toast-manager ref="toast"></toast-manager>
+        <post-delete-modal></post-delete-modal>
+        <post-update-modal></post-update-modal>
     </div>
 </template>
 
@@ -28,50 +29,25 @@
 <script>
     import Navbar from './Navbar.vue';
     import AppFooter from './AppFooter.vue';
-    import store from '../store';
-    import auth from '../ServiceProviders/auth';
     import ToastManager from './utils/ToastManager.vue'
+    import {mapGetters} from 'vuex';
+    import PostDeleteModal from '../components/posts/PostDeleteModal.vue';
+    import PostUpdateModal from '../components/posts/PostUpdateModal.vue';
 
     export default {
-        store,
-        data() {
-            return {
-                auth,
-
-                maxToasts: 6,
-                position: 'bottom right',
-                theme: 'error',
-                timeLife: 3000,
-                closeBtn: false,
-            };
-        },
-
-        attached() {
-            this.resetOptions()
-        },
-
-        methods: {
-            resetOptions() {
-                this.$refs.toast.setOptions({
-                    delayOfJumps: this.delayOfJumps,
-                    maxToasts: this.maxToasts,
-                    position: this.position
-                })
-            },
-
-            showTime() {
-                this.$refs.toast.showToast('Przykładowy toast', {
-                    theme: this.theme,
-                    timeLife: this.timeLife,
-                    closeBtn: this.closeBtn
-                })
-            }
-        },
-
         components: {
             Navbar,
             AppFooter,
-            ToastManager
+            ToastManager,
+            PostDeleteModal,
+            PostUpdateModal
+        },
+
+        computed: {
+            ...mapGetters([
+                'check',
+                'guest'
+            ])
         }
     }
 </script>

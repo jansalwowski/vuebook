@@ -2,7 +2,7 @@ import FormErrors from './FormErrors';
 
 export default class Form {
     constructor(data) {
-        this.originalData = {};
+        this.originalData = data;
         this.errors = new FormErrors();
 
         this.parseData(data);
@@ -40,5 +40,4 @@ export default class Form {
     setErrors(errors) {
         this.errors.setErrors(errors);
     }
-
 }

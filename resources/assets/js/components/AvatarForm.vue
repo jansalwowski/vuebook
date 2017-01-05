@@ -39,6 +39,7 @@
     import {mapActions} from 'vuex';
     import {Toast} from "../Models/Toast";
 
+
     export default {
         data() {
             return {
@@ -87,20 +88,22 @@
 
                 this.$http.post('avatars', data)
                     .then((response) => {
-                        this.addToast(
-                            new Toast('Avatar changed!', {theme: 'success'})
-                        );
+                        this.addToast({
+                            message: 'Avatar changed!',
+                            type: 'success'
+                        });
                         this.$refs.avatarForm.reset();
                         this.form.avatar = null;
                         this.preview = null;
                     })
                     .catch(response => {
                         this.form.setErrors(response.body);
-                        this.addToast(
-                            new Toast('Failed to add avatar', {theme: 'error'})
-                        );
+                        this.addToast({
+                            message: 'Failed to add avatar',
+                            type: 'error'
+                        });
                     });
             }
-        }
+        },
     }
 </script>

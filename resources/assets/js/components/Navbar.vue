@@ -4,7 +4,8 @@
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-ex1-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -19,24 +20,28 @@
                         <li class="active"><a href="#">Link</a></li>
                         <li><a href="#">Link</a></li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
+                    <div class="navbar-left" role="search">
+                        <typeahead></typeahead>
+                    </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Link</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li>
-                                    <router-link to="/logout">Logout</router-link>
-                                </li>
-                            </ul>
+                        <!--<li>-->
+                            <dropdown>
+                                <a slot="button" class="dropdown-toggle">
+                                    Action
+                                    <span class="caret"></span>
+                                </a>
+                                <ul slot="dropdown-menu" class="dropdown-menu">
+                                    <li><a href="#dropdown">Action</a></li>
+                                    <li><a href="#dropdown">Another action</a></li>
+                                    <li><a href="#dropdown">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <router-link to="/logout">Logout</router-link>
+                                    </li>
+                                </ul>
+                            </dropdown>
                         </li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -50,11 +55,13 @@
 </style>
 
 <script>
-    import { dropdown, typeahead } from 'vue-strap'
+    import dropdown from 'vue-strap/src/Dropdown.vue';
+    import typeahead from '../components/general/typeahead.vue';
 
     export default {
         components: {
-            typeahead, dropdown
+            typeahead,
+            dropdown
         }
     }
 </script>

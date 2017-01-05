@@ -1,4 +1,5 @@
 import * as types from '../../types.js';
+import {Toast} from "../../../Models/Toast";
 
 export default {
     state: {
@@ -13,17 +14,25 @@ export default {
         [types.REMOVE_TOAST] (state, toast) {
             let index = state.toasts.indexOf(toast);
 
-            if (index > -1) {
-                console.log(index);
-                state.toasts.splice(index, 1)
-                // delete state.toasts[index];
+            if (index >= 0) {
+                state.toasts.splice(index, 1);
             }
         }
 
     },
 
     actions: {
-        addToast({commit}, toast) {
+        addToast({commit}, {message, type, options}) {
+            if (typeof options !== 'object') {
+                options = {};
+            }
+
+            if (typeof type === 'string') {
+                options.theme = type;
+            }
+
+            let toast = new Toast(message, options);
+
             commit(types.ADD_TOAST, toast);
         },
 

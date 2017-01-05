@@ -1,6 +1,5 @@
 <template>
-    <div>
-
+    <div class="container">
         <div class="user__top">
             <div class="user__top__background">
                 <div class="user__top__buttons">
@@ -34,10 +33,7 @@
             </div>
         </div>
 
-        <div class="user__main">
-            <user-wall v-if="user" :user="user"></user-wall>
-        </div>
-
+        <user-wall v-if="user" :user="user"></user-wall>
     </div>
 </template>
 

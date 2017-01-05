@@ -8,14 +8,18 @@
 
                 <div :class="['form-group', {'has-errors': form.errors.has('username')}]">
                     <label for="username"></label>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="Username" v-model="form.username">
-                    <span class="text-danger small" v-if="form.errors.has('username')" v-text="form.errors.get('username')"></span>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Username"
+                           v-model="form.username">
+                    <span class="text-danger small" v-if="form.errors.has('username')"
+                          v-text="form.errors.get('username')"></span>
                 </div>
 
                 <div :class="['form-group', {'has-errors': form.errors.has('password')}]">
                     <label for="password"></label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" v-model="form.password">
-                    <span class="text-danger small" v-if="form.errors.has('password')" v-text="form.errors.get('password')"></span>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password"
+                           v-model="form.password">
+                    <span class="text-danger small" v-if="form.errors.has('password')"
+                          v-text="form.errors.get('password')"></span>
                 </div>
 
                 <button type="submit" class="btn btn-primary pull-right">Login</button>
@@ -28,9 +32,9 @@
 
 </style>
 
-<script>
+<script type="text/babel">
     import Form from "../../classes/Form";
-    import auth from "../../ServiceProviders/auth";
+    import {mapActions} from 'vuex';
 
     export default {
         data() {
@@ -39,26 +43,32 @@
                     username: '',
                     password: ''
                 }),
-                auth: auth,
                 error: null
             };
         },
 
         methods: {
+            ...mapActions([
+                'login',
+                'fetchUser'
+            ]),
+
             submit() {
-                this.auth.login(
-                    this,
-                    this.form.username,
-                    this.form.password,
-                    (loggedIn, errors) => {
-                        if (loggedIn) {
-                            this.error = null;
-//                            this.$router.replace(this.$route.query.redirect || '/')
-                            this.$router.replace('/');
-                        } else {
-                            this.error = errors;
-                        }
-                    });
+                this.login({
+                    username: this.form.username,
+                    password: this.form.password,
+                    onSuccess: (response) => {
+                        this.error = null;
+                        this.password = '';
+                        this.username = '';
+                        this.fetchUser();
+                        this.$router.replace('/');
+                    },
+                    onFailure: (response) => {
+                        this.error = response.body;
+                        this.password = '';
+                    }
+                });
             }
         }
     }
