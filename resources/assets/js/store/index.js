@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import AuthModule from './modules/Auth';
 import ModalsModule from './modules/Modals';
 import PostsModule from './modules/Posts';
+import CommentsModule from './modules/Comments';
 import ToastsModule from './modules/Toasts';
 
 Vue.use(Vuex);
@@ -14,6 +15,7 @@ export default new Vuex.Store({
         auth: AuthModule,
         modals: ModalsModule,
         posts: PostsModule,
+        comments: CommentsModule,
         toasts: ToastsModule
     },
     strict: debug

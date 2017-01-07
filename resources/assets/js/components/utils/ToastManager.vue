@@ -12,6 +12,7 @@
     .vue-toast-manager_container {
         position: fixed;
         width: 100%;
+        z-index: 1200;
 
         &.--top {
             top: 60px;

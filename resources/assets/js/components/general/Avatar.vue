@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<style lang="scss">
+<style lang="sass" rel="stylesheet/scss">
     .avatar {
         height: 40px;
         width: 40px;

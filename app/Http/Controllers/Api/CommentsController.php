@@ -9,19 +9,21 @@ use Illuminate\Http\Response;
 class CommentsController extends ApiController
 {
 
-    public function show(Comment $comment) : Response
+    public function show(Comment $comment)
     {
         return $this->responseSuccess($comment);
     }
 
-    public function update(Request $request, Comment $comment) : Response
+    public function update(Request $request, Comment $comment)
     {
         $comment->update($request->all());
 
-        return $this->responseSuccess($request);
+        return $this->responseSuccess([
+            'comment' => $comment
+        ]);
     }
 
-    public function destroy(Comment $comment) : Response
+    public function destroy(Comment $comment)
     {
         $comment->delete();
 

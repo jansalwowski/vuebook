@@ -7,22 +7,32 @@ use Illuminate\Http\Request;
 
 class PostCommentsController extends ApiController
 {
-    public function index(Post $post)
+    public function index(Post $post, Request $request)
     {
-        $comments = $post->comments;
+        $lastId = $request->get('lastId', null);
+        $limit = $request->get('limit', 10);
+
+        $comments = $post
+            ->comments()
+            ->with('user')
+            ->withCount('likes')
+            ->orderBy('id')
+            ->limit($limit);
+
+        if ($lastId) {
+            $comments->where('id', '>', $lastId);
+        }
 
         return $this->responseSuccess([
-            'comments' => $comments,
+            'comments' => $comments->get(),
         ]);
     }
 
     public function store(Request $request, Post $post)
     {
-        $commentData = $request->only([
-            'body',
-        ]);
-
-        $comment = $post->comment($commentData);
+        $message = $request->get('body');
+        $comment = $post->comment($message);
+        $comment->load('user');
 
         return $this->responseSuccess([
             'comment' => $comment,

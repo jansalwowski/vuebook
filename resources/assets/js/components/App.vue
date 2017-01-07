@@ -13,6 +13,8 @@
         <toast-manager ref="toast"></toast-manager>
         <post-delete-modal></post-delete-modal>
         <post-update-modal></post-update-modal>
+        <comment-delete-modal></comment-delete-modal>
+        <comment-update-modal></comment-update-modal>
     </div>
 </template>
 
@@ -31,8 +33,10 @@
     import AppFooter from './AppFooter.vue';
     import ToastManager from './utils/ToastManager.vue'
     import {mapGetters} from 'vuex';
-    import PostDeleteModal from '../components/posts/PostDeleteModal.vue';
-    import PostUpdateModal from '../components/posts/PostUpdateModal.vue';
+    import PostDeleteModal from './modals/PostDeleteModal.vue';
+    import PostUpdateModal from './modals/PostUpdateModal.vue';
+    import CommentDeleteModal from './modals/CommentDeleteModal.vue';
+    import CommentUpdateModal from './modals/CommentUpdateModal.vue';
 
     export default {
         components: {
@@ -40,7 +44,9 @@
             AppFooter,
             ToastManager,
             PostDeleteModal,
-            PostUpdateModal
+            PostUpdateModal,
+            CommentDeleteModal,
+            CommentUpdateModal
         },
 
         computed: {

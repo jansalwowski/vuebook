@@ -5,6 +5,18 @@ const state = {
     posts: []
 };
 
+const getters = {
+    getPostToUpdate(state, getters, rootState) {
+        let id = rootState.modals.posts.update.id;
+
+        if (typeof id !== 'number') {
+            return null;
+        }
+
+        return state.posts.filter((p) => p.id === id)[0];
+    }
+};
+
 const mutations = {
     [POST_CREATE] (state, post) {
         state.posts.unshift(post);
@@ -36,18 +48,6 @@ const mutations = {
 
     [POSTS_CLEAR] (state) {
         state.posts = [];
-    }
-};
-
-const getters = {
-    getPostToUpdate(state, getters, rootState) {
-        let id = rootState.modals.posts.update.id;
-
-        if (typeof id !== 'number') {
-            return null;
-        }
-
-        return state.posts.filter((p) => p.id === id)[0];
     }
 };
 

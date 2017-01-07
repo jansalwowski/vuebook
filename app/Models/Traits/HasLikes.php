@@ -59,7 +59,7 @@ trait HasLikes
 
     protected function getUser(User $user = null): User
     {
-        if ($user instanceof $user) {
+        if ($user instanceof User) {
             return $user;
         }
 

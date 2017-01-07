@@ -1,12 +1,15 @@
 <template>
     <div>
-        <form method="post" role="form">
+        <form method="post" role="form" @submit.prevent="submit">
+            <div :class="['form-group', {'has-error': form.errors.has('body')}]">
 
-        	<div :class="['form-group', {'has-error': form.errors.has('body')}]">
-        		<input type="text" class="form-control" name="" v-model="form.body" placeholder="Put your comment here">
-        	</div>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="body" v-model="form.body"
+                           placeholder="Put your comment here" required autocomplete="off">
+                    <span class="input-group-btn"><button class="btn btn-default" type="submit">Submit</button></span>
+                </div>
 
-        	<button type="submit" class="btn default">Submit</button>
+            </div>
         </form>
     </div>
 </template>
@@ -15,8 +18,9 @@
 
 </style>
 
-<script>
+<script type="text/babel">
     import Form from "../../classes/Form";
+    import {mapActions} from "vuex";
 
     export default {
         data() {
@@ -28,12 +32,21 @@
         },
 
         methods: {
+            ...mapActions(['createComment']),
+
             submit() {
                 let data = this.form.getData();
-                data.commentable_id = this.id;
-                data.commentable_type = 'post';
 
-
+                this.createComment({
+                    postId: this.postId,
+                    commentData: data,
+                    onSuccess: (response) => {
+                        this.form.clear();
+                    },
+                    onFailure: (response) => {
+                        this.form.setErrors(response.body);
+                    }
+                });
             }
         },
 

@@ -59,7 +59,6 @@
                         this.user = response.body.user;
                     })
                     .catch(response => {
-                        console.log(response);
                     });
             }
         },

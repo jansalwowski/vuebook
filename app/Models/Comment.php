@@ -18,6 +18,13 @@ class Comment extends Model implements Likeable
         'commentable_id',
     ];
 
+    protected $casts = [
+        'commentable_type' => 'int',
+        'commentable_id' => 'int',
+        'likes_count' => 'int',
+        'user_id' => 'int',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
