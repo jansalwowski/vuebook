@@ -37,6 +37,7 @@
         },
 
         created() {
+            this.clearComments();
             this.clearPosts();
             this.fetchPosts();
         },
@@ -45,6 +46,7 @@
             ...mapActions([
                 'addToast',
                 'getPosts',
+                'clearComments',
                 'clearPosts'
             ]),
 

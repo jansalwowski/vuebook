@@ -4,7 +4,7 @@ import {
     COMMENT_UPDATE,
     COMMENT_DELETE,
     COMMENT_LIKE,
-    COMMENT_UNLIKE
+    COMMENT_UNLIKE, COMMENTS_CLEAR
 } from "../../types";
 const state = {
     comments: []
@@ -30,6 +30,10 @@ const mutations = {
 
     [COMMENTS_FETCH] (state, comments) {
         state.comments = state.comments.concat(comments);
+    },
+
+    [COMMENTS_CLEAR] (state) {
+        state.comments = [];
     },
 
     [COMMENT_UPDATE] (state, comment) {
@@ -157,6 +161,10 @@ const actions = {
             .catch((response) => {
 
             });
+    },
+
+    clearComments({commit}) {
+        commit(COMMENTS_CLEAR);
     }
 
 };
