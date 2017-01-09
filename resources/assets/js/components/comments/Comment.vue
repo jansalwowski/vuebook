@@ -8,7 +8,7 @@
             <user-link :user="comment.user"></user-link> {{ comment.body }}
 
             <div class="comment__details">
-                <a href="#" @click.prevent="like">Like</a> <span class="text-muted">{{ comment.created_at }}</span> <span v-if="was_edited">, Edited</span>
+                <span v-show="hasLikes">{{ comment.likes_count }}</span> <a href="#" @click.prevent="toggleLike()">{{ likeText }}</a> <span class="text-muted">{{ comment.created_at }}</span> <span v-if="was_edited">, Edited</span>
             </div>
         </div>
 
@@ -81,7 +81,7 @@
     import Avatar from '../general/Avatar.vue';
     import UserLink from '../general/UserLink.vue';
     import Dropdown from 'vue-strap/src/Dropdown.vue';
-    import {MODALS_COMMENT_SHOW_DELETE, MODALS_COMMENT_SHOW_UPDATE} from "../../store/types";
+    import {MODALS_COMMENT_SHOW_DELETE, MODALS_COMMENT_SHOW_UPDATE} from "../../store/types"; import {mapActions} from "vuex";
 
     export default {
         props: {
@@ -92,8 +92,29 @@
         },
 
         methods: {
+            ...mapActions([
+                'likeComment',
+                'unlikeComment'
+            ]),
+
+            toggleLike() {
+                if (this.comment.wasLiked) {
+                    this.unlike();
+                } else {
+                    this.like();
+                }
+            },
+
             like() {
-                console.log('*LIKE COMMENT*');
+                this.likeComment({
+                    id: this.comment.id
+                });
+            },
+
+            unlike() {
+                this.unlikeComment({
+                    id: this.comment.id
+                });
             },
 
             showDeleteModal() {
@@ -102,6 +123,16 @@
 
             showEditModal() {
                 this.$store.commit(MODALS_COMMENT_SHOW_UPDATE, this.comment.id);
+            }
+        },
+
+        computed: {
+            hasLikes() {
+                return this.comment.likes_count > 0;
+            },
+
+            likeText() {
+                return this.comment.wasLiked ? 'Unlike' : 'Like';
             }
         },
 

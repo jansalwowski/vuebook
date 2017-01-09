@@ -47,7 +47,7 @@
         <hr class="post__separator">
 
         <div class="panel-body">
-            <a href="#" @click.prevent="showLikes()" class="post__link">
+            <a href="#" @click.prevent="toggleLike()" :class="['post__link', {'post__link--liked': post.wasLiked}] ">
                 {{ post.likes_count }} <i class="glyphicon glyphicon-thumbs-up post__link__icon"></i>
             </a>
             <a href="#" @click.prevent="commentsClick()" class="post__link">
@@ -81,6 +81,15 @@
         &__link {
             color: #ababab;
             padding-right: 25px;
+            text-decoration: none !important;
+
+            &--liked {
+                color: #428BCA !important;
+
+                .post__link__icon {
+                    color: #428BCA !important;
+                }
+            }
 
             &__icon {
                 color: #ababab;
@@ -128,10 +137,7 @@
     export default {
         data() {
             return {
-                forceShowComments: false,
-                editForm: new Form({
-                    body: this.post.body
-                })
+                forceShowComments: false
             };
         },
 
@@ -139,12 +145,28 @@
 
         methods: {
             ...mapActions([
-                'updatePost',
-                'addToast'
+                'likePost',
+                'unlikePost'
             ]),
 
-            showLikes() {
+            toggleLike() {
+                if (this.post.wasLiked) {
+                    this.unlike();
+                } else {
+                    this.like();
+                }
+            },
 
+            like() {
+                this.likePost({
+                    id: this.post.id
+                });
+            },
+
+            unlike() {
+                this.unlikePost({
+                    id: this.post.id
+                });
             },
 
             showDeleteModal() {

@@ -31,12 +31,12 @@ class PostLikesController extends ApiController
         ]);
     }
 
-    public function delete(Post $post)
+    public function destroy(Post $post)
     {
         $post->unlike();
 
         return $this->responseSuccess([
-            'unliked' => true,
+            'liked' => false,
         ]);
     }
 }

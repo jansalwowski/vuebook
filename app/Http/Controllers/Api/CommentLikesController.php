@@ -31,7 +31,7 @@ class CommentLikesController extends ApiController
         ]);
     }
 
-    public function delete(Comment $comment)
+    public function destroy(Comment $comment)
     {
         $comment->unlike();
 

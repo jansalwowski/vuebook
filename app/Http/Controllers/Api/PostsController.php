@@ -12,7 +12,7 @@ class PostsController extends ApiController
 
     public function index()
     {
-        $posts = Post::with('user')->limit(15)->get();
+        $posts = Post::with(['user', 'target'])->limit(15)->get();
 
         return $this->responseSuccess([
             'posts' => $posts,
@@ -33,6 +33,7 @@ class PostsController extends ApiController
         $post->load(['user', 'target']);
         $post->comments_count = 0;
         $post->likes_count = 0;
+        $post->was_liked = false;
 
         return $this->responseSuccess(['post' => $post]);
     }

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import {POST_CREATE, POST_DELETE, POST_UPDATE, POSTS_FETCH, POSTS_CLEAR} from '../../types.js';
+import {POST_LIKE, POST_UNLIKE} from "../../types";
 
 const state = {
     posts: []
@@ -48,6 +49,24 @@ const mutations = {
 
     [POSTS_CLEAR] (state) {
         state.posts = [];
+    },
+
+    [POST_LIKE] (state, id) {
+        let post = state.posts.find((p) => p.id === id);
+
+        if (post) {
+            post.wasLiked = true;
+            post.likes_count++;
+        }
+    },
+
+    [POST_UNLIKE] (state, id) {
+        let post = state.posts.find((p) => p.id === id);
+
+        if (post) {
+            post.wasLiked = false;
+            post.likes_count--;
+        }
     }
 };
 
@@ -126,6 +145,26 @@ const actions = {
 
     getPost({state}, id) {
         return state.posts.filter((p) => p.id === id);
+    },
+
+    likePost({commit}, {id}) {
+        Vue.http.post('posts/' + id + '/likes')
+            .then((response) => {
+                commit(POST_LIKE, id);
+            })
+            .catch((response) => {
+
+            });
+    },
+
+    unlikePost({commit}, {id}) {
+        Vue.http.delete('posts/' + id + '/likes')
+            .then((response) => {
+                commit(POST_UNLIKE, id);
+            })
+            .catch((response) => {
+
+            });
     }
 };
 

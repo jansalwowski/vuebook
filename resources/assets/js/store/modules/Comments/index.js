@@ -1,4 +1,11 @@
-import {COMMENT_CREATE, COMMENTS_FETCH, COMMENT_UPDATE, COMMENT_DELETE} from "../../types";
+import {
+    COMMENT_CREATE,
+    COMMENTS_FETCH,
+    COMMENT_UPDATE,
+    COMMENT_DELETE,
+    COMMENT_LIKE,
+    COMMENT_UNLIKE
+} from "../../types";
 const state = {
     comments: []
 };
@@ -44,6 +51,24 @@ const mutations = {
         }
 
     },
+
+    [COMMENT_LIKE] (state, id) {
+        let comment = state.comments.find((c) => c.id === id);
+
+        if (comment) {
+            comment.wasLiked = true;
+            comment.likes_count++;
+        }
+    },
+
+    [COMMENT_UNLIKE] (state, id) {
+        let comment = state.comments.find((c) => c.id === id);
+
+        if (comment) {
+            comment.wasLiked = false;
+            comment.likes_count--;
+        }
+    }
 };
 
 const actions = {
@@ -113,6 +138,26 @@ const actions = {
                 }
             });
     },
+
+    likeComment({commit}, {id}) {
+        Vue.http.post('comments/' + id + '/likes')
+            .then((response) => {
+                commit(COMMENT_LIKE, id);
+            })
+            .catch((response) => {
+
+            });
+    },
+
+    unlikeComment({commit}, {id}) {
+        Vue.http.delete('comments/' + id + '/likes')
+            .then((response) => {
+                commit(COMMENT_UNLIKE, id);
+            })
+            .catch((response) => {
+
+            });
+    }
 
 };
 
