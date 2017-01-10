@@ -22,8 +22,10 @@ export default class FormErrors {
         return this.errors.hasOwnProperty(field) && this.errors[field].length > 0;
     }
 
-    setErrors(errors) {
-        this.errors = errors;
+    setErrors(errors = {}) {
+        if( typeof errors === 'object' ) {
+            this.errors = errors;
+        }
     }
 
     getErrors() {

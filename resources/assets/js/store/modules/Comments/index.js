@@ -29,7 +29,18 @@ const mutations = {
     },
 
     [COMMENTS_FETCH] (state, comments) {
-        state.comments = state.comments.concat(comments);
+        if( Object.prototype.toString.call(comments) !== '[object Array]' ) {
+            return;
+        }
+
+        comments = comments.filter((c) => {
+            let t = state.comments.find(fc => fc.id === c.id);
+            return typeof t === 'undefined';
+        });
+
+        if (comments.length) {
+            state.comments = state.comments.concat(comments);
+        }
     },
 
     [COMMENTS_CLEAR] (state) {
@@ -79,7 +90,7 @@ const actions = {
     createComment({commit}, {commentData, postId, onSuccess, onFailure}) {
         Vue.http.post('posts/' + postId + '/comments', commentData)
             .then((response) => {
-                commit(COMMENTS_FETCH, response.body.comment);
+                commit(COMMENT_CREATE, response.body.comment);
 
                 if (typeof onSuccess == 'function') {
                     onSuccess(response);

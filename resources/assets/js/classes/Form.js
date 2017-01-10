@@ -30,9 +30,11 @@ export default class Form {
     }
 
     clear() {
-        for (let field in this.originalData) {
-            if (this.originalData.hasOwnProperty(field)) {
-                this[field] = '';
+        if (this.originalData) {
+            for (let field in this.originalData) {
+                if (this.originalData.hasOwnProperty(field)) {
+                    this[field] = '';
+                }
             }
         }
     }
