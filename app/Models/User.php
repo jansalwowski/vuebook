@@ -119,4 +119,34 @@ class User extends Authenticatable
     {
         return $this->photos()->save($photo);
     }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'followed_id', 'user_id');
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'followed_id');
+    }
+
+    public function isFollowing(User $user)
+    {
+        return $this->following()->where('followed_id', $user->id)->exists();
+    }
+
+    public function isFollowedBy(User $user)
+    {
+        return $this->followers()->where('user_id', $user->id)->exists();
+    }
+
+    public function follow(User $user)
+    {
+        return $this->following()->attach($user);
+    }
+
+    public function unfollow(User $user)
+    {
+        return $this->following()->detach($user);
+    }
 }

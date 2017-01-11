@@ -19,11 +19,19 @@ Route::get('/user', 'AuthController@index')->middleware('auth:api');
 
 Route::get('wall', 'Users\WallController@index')->name('mainwall')->middleware('auth:api');
 Route::get('{user}/wall', 'Users\WallController@show')->name('userwall')->middleware('auth:api');
-Route::get('/users/search', 'Users\UsersSearchController@index');
-Route::get('/users/{user}', 'Users\UsersController@show');
+
+Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
+    Route::get('/search', 'UsersSearchController@index');
+    Route::get('/{user}/followers', 'FollowersController@show');
+    Route::get('/{user}/following', 'FollowingController@show');
+    Route::post('/{user}/follow', 'FollowController@store')->middleware('auth:api');
+    Route::delete('/{user}/unfollow', 'FollowController@delete')->middleware('auth:api');
+    Route::get('/{user}', 'UsersController@show');
+});
+Route::get('profile/{user}', 'Users\ProfileController@index');
 Route::post('/avatars', 'Images\AvatarsController@store')->middleware('auth:api');
-//Route::post('/avatars', 'Images\AvatarsController@store');
 Route::post('/crop', 'Images\CropController@store');
+
 
 Route::group(['prefix' => 'posts', 'name' => 'posts'], function () {
     Route::get('', 'PostsController@index');

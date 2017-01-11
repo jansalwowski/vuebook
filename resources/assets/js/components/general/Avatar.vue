@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img :src="user.avatar" :class="['avatar', {'avatar--big': big, 'avatar--small': small}]">
+        <img :src="user.avatar" :class="['avatar', {'avatar--big': big, 'avatar--small': small, 'avatar--profile': profile}]">
     </div>
 </template>
 
@@ -12,12 +12,17 @@
         &--big {
             height: 60px;
             width: 60px;
-         }
+        }
 
-         &--small {
-              height: 25px;
-              width: 25px;
-          }
+        &--profile {
+            height: 120px;
+            width: 120px;
+        }
+
+        &--small {
+            height: 25px;
+            width: 25px;
+        }
     }
 </style>
 
@@ -39,6 +44,10 @@
                 default: false
             },
             big: {
+                type: Boolean,
+                default: false
+            },
+            profile: {
                 type: Boolean,
                 default: false
             }
