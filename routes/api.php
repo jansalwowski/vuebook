@@ -13,8 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('register', 'RegistrationController@store');
-Route::get('/user', 'AuthController@index')->middleware('auth:api');
+Route::group(['namespace' => 'Auth'], function() {
+    Route::post('/register', 'RegistrationController@store');
+    Route::patch('/password', 'PasswordController@update')->middleware('auth:api');
+    Route::get('/user', 'CurrentUserController@index')->middleware('auth:api');
+});
 
 
 Route::get('wall', 'Users\WallController@index')->name('mainwall')->middleware('auth:api');
@@ -30,6 +33,7 @@ Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
 });
 Route::get('profile/{user}', 'Users\ProfileController@index');
 Route::post('/avatars', 'Images\AvatarsController@store')->middleware('auth:api');
+Route::post('/covers', 'Images\CoversController@store')->middleware('auth:api');
 Route::post('/crop', 'Images\CropController@store');
 
 

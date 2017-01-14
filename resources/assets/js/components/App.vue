@@ -1,14 +1,12 @@
 <template>
     <div>
-        <div :class="{'without-nav': guest}">
-            <navbar v-if="check"></navbar>
+        <navbar v-if="check"></navbar>
 
-            <div class="content">
-                <router-view></router-view>
-            </div>
-
-            <app-footer></app-footer>
+        <div class="content">
+            <router-view></router-view>
         </div>
+
+        <app-footer></app-footer>
 
         <toast-manager ref="toast"></toast-manager>
         <post-delete-modal></post-delete-modal>
@@ -20,11 +18,7 @@
 
 <style>
     .content {
-        margin-top: 50px;
-    }
-
-    .without-nav .content {
-        margin-top: 100px
+        margin-top: 100px;
     }
 </style>
 
@@ -32,7 +26,7 @@
     import Navbar from './Navbar.vue';
     import AppFooter from './AppFooter.vue';
     import ToastManager from './utils/ToastManager.vue'
-    import {mapGetters} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
     import PostDeleteModal from './modals/PostDeleteModal.vue';
     import PostUpdateModal from './modals/PostUpdateModal.vue';
     import CommentDeleteModal from './modals/CommentDeleteModal.vue';
@@ -47,6 +41,18 @@
             PostUpdateModal,
             CommentDeleteModal,
             CommentUpdateModal
+        },
+
+        created() {
+            if (this.check) {
+                this.fetchUser();
+            }
+        },
+
+        methods: {
+            ...mapActions([
+                'fetchUser'
+            ])
         },
 
         computed: {

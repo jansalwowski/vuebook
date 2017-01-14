@@ -1,13 +1,7 @@
 <template>
-    <div class="Typeahead">
-        <i class="fa fa-spinner fa-spin" v-if="loading"></i>
-        <template v-else>
-            <i class="fa fa-search" v-show="isEmpty"></i>
-            <i class="fa fa-times" v-show="isDirty" @click="reset"></i>
-        </template>
-
+    <div class="typeahead">
         <input type="text"
-               class="Typeahead__input"
+               class="form-control typeahead__input"
                placeholder="Search twitter user"
                autocomplete="off"
                v-model="query"
@@ -17,6 +11,14 @@
                @keydown.esc="reset"
                @blur="reset"
                @input="update"/>
+
+        <div class="typeahead__icons">
+            <i class="fa fa-spinner fa-spin" v-if="loading"></i>
+            <template v-else>
+                <i class="fa fa-search" v-show="isEmpty"></i>
+                <i class="fa fa-times" v-show="isDirty" @click="reset"></i>
+            </template>
+        </div>
 
         <ul v-show="hasItems">
             <li v-for="(item, index) in items" :class="activeClass(index)" @mousedown="hit" @mousemove="setActive(index)">
@@ -28,13 +30,13 @@
 </template>
 
 
-
+\
 <script>
-    import VueTypeahead from 'vue-typeahead'
+    import Vuetypeahead from 'vue-typeahead'
     import Avatar from './Avatar.vue'
 
     export default {
-        extends: VueTypeahead,
+        extends: Vuetypeahead,
 
         data () {
             return {
@@ -47,7 +49,7 @@
 
         methods: {
             onHit (item) {
-                window.location.href = '#/' + item.username
+                this.$router.replace('/'+item.username);
             }
         },
 
@@ -60,42 +62,32 @@
 
 
 <style scoped>
-    .Typeahead {
+    .typeahead {
+        margin-top: 2px;
         position: relative;
         width: 350px;
     }
 
-    .Typeahead__input {
-        width: 100%;
-        font-size: 14px;
-        color: #2c3e50;
-        line-height: 1.42857143;
-        /*box-shadow: inset 0 1px 4px rgba(0,0,0,.4);*/
-        /*-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;*/
-        /*transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;*/
-        font-weight: 300;
-        padding: 12px 26px;
-        /*border: none;*/
-        letter-spacing: 1px;
-        /*box-sizing: border-box;*/
+    .typeahead__icons {
+        float: right;
+        position: absolute;
+        top: 16px;
+        right: 15px;
+        opacity: 0.4;
     }
 
-    .Typeahead__input:focus {
-        border-color: #4fc08d;
-        outline: 0;
-        /*box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px #4fc08d;*/
+
+    .typeahead__input {
+        line-height: 1.42857143;
+        padding: 23px 26px;
+    }
+
+    .typeahead__input:not(:focus) {
+        border: none;
     }
 
     .fa-times {
         cursor: pointer;
-    }
-
-    i {
-        float: right;
-        position: relative;
-        top: 30px;
-        right: 29px;
-        opacity: 0.4;
     }
 
     ul {
@@ -133,7 +125,7 @@
     }
 
     .active {
-        background-color: #3aa373;
+        background-color: #13d3ff;
     }
 
     .active span {

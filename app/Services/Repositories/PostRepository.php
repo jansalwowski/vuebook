@@ -47,8 +47,9 @@ class PostRepository
      */
     public function getMainWallPosts(User $user, int $lastId = null): Collection
     {
-//        $friendsIds = $user->friends()->pluck('id');
-        $friendsIds = [];
+        $followingIds = $user->following()->pluck('followers.id');
+        $followersIds = $user->followers()->pluck('followers.id');
+        $friendsIds = $followingIds->merge($followersIds);
 
         $query = Post::query()
             ->with(['user', 'target'])

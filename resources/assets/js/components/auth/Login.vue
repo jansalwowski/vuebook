@@ -49,8 +49,7 @@
 
         methods: {
             ...mapActions([
-                'login',
-                'fetchUser'
+                'login'
             ]),
 
             submit() {
@@ -61,7 +60,6 @@
                         this.error = null;
                         this.password = '';
                         this.username = '';
-                        this.fetchUser();
                         this.$router.replace('/');
                     },
                     onFailure: (response) => {

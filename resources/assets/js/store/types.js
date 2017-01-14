@@ -1,6 +1,8 @@
 export const AUTH_SET_TOKEN = 'AUTH_SET_TOKEN';
 export const AUTH_SET_USER = 'AUTH_SET_USER';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+export const AUTH_USER_SET_AVATAR = 'AUTH_USER_SET_AVATAR';
+export const AUTH_USER_SET_COVER_PHOTO = 'AUTH_USER_SET_COVER_PHOTO';
 
 export const ADD_TOAST = 'ADD_TOAST';
 export const REMOVE_TOAST = 'REMOVE_TOAST';
@@ -38,3 +40,4 @@ export const SET_FOLLOWED = 'SET_FOLLOWED';
 export const SET_IS_OWN_PROFILE = 'SET_IS_OWN_PROFILE';
 export const GET_USER = 'GET_USER';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
+export const PROFILE_SET_COVER_PHOTO = 'PROFILE_SET_COVER_PHOTO';

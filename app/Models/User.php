@@ -24,6 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
         'birthday',
+        'avatar',
+        'cover',
     ];
 
     protected $dates = ['verified_at'];
@@ -122,12 +124,12 @@ class User extends Authenticatable
 
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'followers', 'followed_id', 'user_id');
+        return $this->belongsToMany(User::class, 'followers', 'followed_id', 'user_id')->withTimestamps();
     }
 
     public function following()
     {
-        return $this->belongsToMany(User::class, 'followers', 'user_id', 'followed_id');
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'followed_id')->withTimestamps();
     }
 
     public function isFollowing(User $user)
@@ -148,5 +150,26 @@ class User extends Authenticatable
     public function unfollow(User $user)
     {
         return $this->following()->detach($user);
+    }
+
+    public function setPassword(string $password)
+    {
+        $this->password = bcrypt($password);
+        $this->save();
+    }
+
+    public function getAccessToken()
+    {
+        return $this->token()->accessToken;
+    }
+
+    public function getAvatarAttribute()
+    {
+        return $this->attributes['avatar'] ?? asset('/img/generic-avatar.png');
+    }
+
+    public function getCoverAttribute()
+    {
+        return $this->attributes['cover'] ?? asset('/img/generic-cover.jpg');
     }
 }

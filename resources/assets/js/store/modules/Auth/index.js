@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import {CLIENT_ID, CLIENT_SECRET} from '../../../.env.js';
-import {AUTH_LOGOUT, AUTH_SET_TOKEN, AUTH_SET_USER} from '../../types';
+import {
+    AUTH_LOGOUT, AUTH_SET_TOKEN, AUTH_SET_USER, AUTH_USER_SET_AVATAR, AUTH_USER_SET_COVER_PHOTO,
+    PROFILE_SET_COVER_PHOTO
+} from '../../types';
 
 const state = {
     user: JSON.parse(localStorage.getItem('vuebook-user')),
@@ -9,7 +12,7 @@ const state = {
 };
 
 const actions = {
-    login({commit}, {username, password, onSuccess, onFailure}) {
+    login({dispatch, commit}, {username, password, onSuccess, onFailure}) {
         const data = {
             'grant_type': 'password',
             'client_id': CLIENT_ID,
@@ -22,6 +25,7 @@ const actions = {
         Vue.http.post('/oauth/token', data)
             .then(response => {
                 commit(AUTH_SET_TOKEN, response.body.access_token);
+                dispatch('fetchUser');
 
                 if (typeof onSuccess == 'function') {
                     onSuccess(response);
@@ -61,6 +65,58 @@ const actions = {
                     onFailure(response);
                 }
             });
+    },
+
+    changeAvatar({commit}, {data, onSuccess, onFailure}) {
+        Vue.http.post('avatars', data)
+            .then(response => {
+                commit(AUTH_USER_SET_AVATAR, response.body.avatar);
+
+                if (typeof onSuccess == 'function') {
+                    onSuccess(response);
+                }
+            })
+            .catch(response => {
+                if (typeof onFailure == 'function') {
+                    onFailure(response);
+                }
+            });
+    },
+
+    changeCoverPhoto({commit, rootGetters}, data) {
+
+        return new Promise((resolve, reject) => {
+            Vue.http.post('covers', data)
+                .then(response => {
+                    let cover = response.body.cover;
+                    commit(AUTH_USER_SET_COVER_PHOTO, cover);
+
+                    if (rootGetters.isOwnProfile) {
+                        commit(PROFILE_SET_COVER_PHOTO, cover);
+                    }
+
+                    resolve(response.body);
+                })
+                .catch(response => {
+                    reject(response.body);
+                });
+        });
+    },
+
+    changePassword({commit}, data) {
+        return new Promise((resolve, reject) => {
+            Vue.http.patch('password', data)
+                .then((response) => {
+                    if (response.body.hasOwnProperty('token')) {
+                        commit(AUTH_SET_TOKEN, response.body.token);
+                    }
+
+                    resolve(response.body);
+                })
+                .catch((response) => {
+                    reject(response.body);
+                });
+        });
     }
 };
 
@@ -88,7 +144,7 @@ const mutations = {
         state.authenticated = true;
 
         localStorage.setItem('vuebook-token', token);
-        Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('vuebook-token');
+        Vue.http.headers.common['Authorization'] = 'Bearer ' + token;
     },
 
     [AUTH_SET_USER](state, user) {
@@ -104,6 +160,14 @@ const mutations = {
 
         localStorage.removeItem('vuebook-token');
         localStorage.removeItem('vuebook-user');
+    },
+
+    [AUTH_USER_SET_AVATAR] (state, avatar) {
+        state.user.avatar = avatar;
+    },
+
+    [AUTH_USER_SET_COVER_PHOTO] (state, cover) {
+        state.user.cover = cover;
     }
 };
 

@@ -1,4 +1,4 @@
-import {CLEAR_PROFILE, GET_USER, FOLLOW_USER, UNFOLLOW_USER, SET_FOLLOWED, SET_IS_OWN_PROFILE} from "../../types";
+import {CLEAR_PROFILE, GET_USER, FOLLOW_USER, UNFOLLOW_USER, SET_FOLLOWED, SET_IS_OWN_PROFILE, PROFILE_SET_COVER_PHOTO} from "../../types";
 const state = {
     user: {},
     followed: false,
@@ -8,6 +8,10 @@ const state = {
 const getters = {
     getProfileUser(state) {
         return state.user;
+    },
+
+    isOwnProfile(state) {
+        return state.ownProfile;
     }
 };
 
@@ -36,26 +40,30 @@ const mutations = {
 
     [SET_IS_OWN_PROFILE] (state, ownProfile) {
         state.ownProfile = ownProfile;
+    },
+
+    [PROFILE_SET_COVER_PHOTO] (state, cover) {
+        if (state.user.hasOwnProperty('cover')) {
+            state.user.cover = cover;
+        }
     }
 };
 
 const actions = {
-    getProfile({commit}, {username, onSuccess, onFailure}) {
-        Vue.http.get('profile/' + username)
-            .then((response) => {
-                commit(GET_USER, response.body.user);
-                commit(SET_IS_OWN_PROFILE, response.body.isOwnProfile);
-                commit(SET_FOLLOWED, response.body.followed);
+    getProfile({commit}, username) {
+        return new Promise((resolve, reject) => {
+            Vue.http.get('profile/' + username)
+                .then((response) => {
+                    commit(GET_USER, response.body.user);
+                    commit(SET_IS_OWN_PROFILE, response.body.ownProfile);
+                    commit(SET_FOLLOWED, response.body.followed);
 
-                if (typeof onSuccess == 'function') {
-                    onSuccess(response);
-                }
-            })
-            .catch((response) => {
-                if (typeof onFailure == 'function') {
-                    onFailure(response);
-                }
-            });
+                    resolve(response.body);
+                })
+                .catch((response) => {
+                    reject(response.body);
+                });
+        });
     },
 
     follow({commit}, {username, onSuccess, onFailure}) {

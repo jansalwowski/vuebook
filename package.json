@@ -17,6 +17,7 @@
     "scss-loader": "0.0.1"
   },
   "dependencies": {
+    "font-awesome": "^4.7.0",
     "jcrop": "0.0.1",
     "moment": "^2.17.1",
     "vue": "^2.0.3",

@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <img :src="user.avatar" :class="['avatar', {'avatar--big': big, 'avatar--small': small, 'avatar--profile': profile}]">
-    </div>
+    <img :src="user.avatar" :class="['avatar', {'avatar--big': big, 'avatar--small': small, 'avatar--profile': profile}]">
 </template>
 
 <style lang="sass" rel="stylesheet/scss">

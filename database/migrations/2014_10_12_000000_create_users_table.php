@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->date('birthday')->nullable();
             $table->string('avatar')->nullable();
+            $table->string('cover')->nullable();
             $table->timestamps();
             $table->timestamp('verified_at')->nullable()->default(null);
             $table->softDeletes();

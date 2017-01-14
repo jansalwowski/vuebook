@@ -20,8 +20,10 @@ class AvatarsController extends ApiController
         ]);
 
         $this->user->addPhoto($photo);
+        $this->user->avatar = $path;
+        $this->user->save();
 
-        return $this->responseSuccess([$this->user->avatar]);
+        return $this->responseSuccess(['avatar' => $this->user->avatar]);
     }
 
 }

@@ -2,14 +2,17 @@
     <div class="container user">
         <div class="user__top">
             <div class="user__cover">
-                <img class="user__cover__image" src="https://s-media-cache-ak0.pinimg.com/originals/75/12/78/7512787482ee6410f3c810361cefa084.jpg"
+                <img class="user__cover__image" :src="cover"
                      alt="Background">
+                <div class="user__top__name">{{ user.name }} ({{ user.username }})</div>
                 <div class="user__cover__buttons">
                     <div class="btn-group">
                         <a href="#" class="btn btn-default" v-if="isOwnProfile">User History</a>
-                        <a href="#" class="btn btn-default" v-if="isOwnProfile">Edit background photo</a>
-                        <a href="#" @click.prevent="followUser()" class="btn btn-default" v-if="auth && !isOwnProfile && isNotFollowed">Follow</a>
-                        <a href="#" @click.prevent="unfollowUser()" class="btn btn-default" v-if="auth && !isOwnProfile && isFollowed">Unfollow</a>
+                        <a href="#" @click.prevent="showCoverPhotoModal = true" class="btn btn-default" v-if="isOwnProfile">Edit cover photo</a>
+                        <a href="#" @click.prevent="followUser()" class="btn btn-default"
+                           v-if="auth && !isOwnProfile && isNotFollowed">Follow</a>
+                        <a href="#" @click.prevent="unfollowUser()" class="btn btn-default"
+                           v-if="auth && !isOwnProfile && isFollowed">Unfollow</a>
                         <a href="#" class="btn btn-default">...</a>
                     </div>
                 </div>
@@ -33,10 +36,24 @@
         </div>
 
         <user-wall v-if="loadWall" :user="user"></user-wall>
+
+        <modal :value="showCoverPhotoModal" @cancel="showCoverPhotoModal = false" effect="fade" BIG v-if="isOwnProfile">
+            <div slot="modal-header" class="modal-header">
+                <h4 class="modal-title">Change cover photo</h4>
+            </div>
+
+            <cover-photo-form @cover-photo-changed="showCoverPhotoModal = false"></cover-photo-form>
+
+            <div slot="modal-footer" class="modal-footer">
+                <button type="button" class="btn btn-default" @click="showCoverPhotoModal = false">Cancel</button>
+            </div>
+        </modal>
     </div>
 </template>
 
 <style lang="sass" rel="stylesheet/scss">
+    $fontBorder: #747474;
+
     .user {
         margin-top: -50px;
 
@@ -55,6 +72,18 @@
                 border-radius: 4px;
                 display: block;
                 padding: 4px;
+            }
+
+            &__name {
+                bottom: 10px;
+                color: white;
+                left: 150px;
+                font: {
+                    size: 24px;
+                    weight: bold;
+                }
+                position: absolute;
+                text-shadow: -1px 0 $fontBorder, 0 1px $fontBorder, 1px 0 $fontBorder, 0 -1px $fontBorder;
             }
         }
 
@@ -107,16 +136,19 @@
 <script type="text/babel">
     import UserWall from '../components/UserWall.vue';
     import Avatar from '../components/general/Avatar.vue';
+    import CoverPhotoForm from '../components/CoverPhotoForm.vue';
+    import Modal from 'vue-strap/src/Modal.vue';
     import {mapGetters, mapActions} from "vuex";
 
     export default {
         data() {
             return {
-                username: this.$route.params.username,
+                showCoverPhotoModal: false
             };
         },
 
         created() {
+            this.clearProfile();
             this.fetchUser();
         },
 
@@ -131,9 +163,10 @@
 
             fetchUser() {
                 this.clearProfile();
-                this.getProfile({
-                    username: this.username
-                });
+                this.getProfile(this.username)
+                    .catch(response => {
+                        console.log('error', response);
+                    });
             },
 
             followUser() {
@@ -168,6 +201,10 @@
                 user: 'getProfileUser'
             }),
 
+            username() {
+                return this.$route.params.username;
+            },
+
             isOwnProfile() {
                 return this.auth && this.currentUser.id === this.user.id;
             },
@@ -182,9 +219,17 @@
 
             loadWall() {
                 return this.user && this.user.hasOwnProperty('username');
+            },
+
+            cover() {
+                return this.user.cover || '';
             }
         },
 
-        components: {UserWall, Avatar}
+        watch: {
+            '$route': 'fetchUser'
+        },
+
+        components: {UserWall, Avatar, Modal, CoverPhotoForm}
     }
 </script>
