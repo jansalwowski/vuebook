@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import {CLIENT_ID, CLIENT_SECRET} from '../../../.env.js';
 import {
-    AUTH_LOGOUT, AUTH_SET_TOKEN, AUTH_SET_USER, AUTH_USER_SET_AVATAR, AUTH_USER_SET_COVER_PHOTO,
-    PROFILE_SET_COVER_PHOTO, PROFILE_SET_AVATAR
+    AUTH_LOGOUT, AUTH_SET_TOKEN, AUTH_SET_USER, SET_AVATAR,
+    SET_COVER_PHOTO, SET_AVATAR
 } from '../../types';
 
 const state = {
@@ -35,11 +35,11 @@ const mutations = {
         localStorage.removeItem('vuebook-user');
     },
 
-    [AUTH_USER_SET_AVATAR] (state, avatar) {
+    [SET_AVATAR] (state, {avatar}) {
         state.user.avatar = avatar;
     },
 
-    [AUTH_USER_SET_COVER_PHOTO] (state, cover) {
+    [SET_COVER_PHOTO] (state, {cover}) {
         state.user.cover = cover;
     }
 };
@@ -100,17 +100,14 @@ const actions = {
             });
     },
 
-    changeAvatar({commit, rootGetters}, data) {
+    changeAvatar({commit, getters}, data) {
         return new Promise((resolve, reject) => {
-
             Vue.http.post('avatars', data)
                 .then(response => {
                     let avatar = response.body.avatar;
-                    commit(AUTH_USER_SET_AVATAR, avatar);
+                    let userId = getters.getUser.id;
 
-                    if (rootGetters.isOwnProfile) {
-                        commit(PROFILE_SET_AVATAR, avatar);
-                    }
+                    commit(SET_AVATAR, {userId, avatar});
 
                     resolve(response.body);
                 })
@@ -120,17 +117,14 @@ const actions = {
         });
     },
 
-    changeCoverPhoto({commit, rootGetters}, data) {
-
+    changeCoverPhoto({commit, getters}, data) {
         return new Promise((resolve, reject) => {
             Vue.http.post('covers', data)
                 .then(response => {
                     let cover = response.body.cover;
-                    commit(AUTH_USER_SET_COVER_PHOTO, cover);
+                    let userId = getters.authUserId;
 
-                    if (rootGetters.isOwnProfile) {
-                        commit(PROFILE_SET_COVER_PHOTO, cover);
-                    }
+                    commit(SET_COVER_PHOTO, {cover, userId});
 
                     resolve(response.body);
                 })
@@ -172,6 +166,14 @@ const getters = {
 
     getUser(state) {
         return state.user;
+    },
+
+    authUserId(state) {
+        if (state.user && state.user.hasOwnProperty('id')) {
+            return state.user.id;
+        }
+
+        return null;
     }
 };
 

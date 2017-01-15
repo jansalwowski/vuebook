@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import {POST_CREATE, POST_DELETE, POST_UPDATE, POSTS_FETCH, POSTS_CLEAR} from '../../types.js';
-import {POST_LIKE, POST_UNLIKE} from "../../types";
+import {POST_LIKE, POST_UNLIKE, SET_AVATAR} from "../../types";
 
 const state = {
     posts: []
@@ -66,6 +66,14 @@ const mutations = {
         if (post) {
             post.wasLiked = false;
             post.likes_count--;
+        }
+    },
+
+    [SET_AVATAR] (state, {userId, avatar}) {
+        for (let i = 0; i < state.posts.length; i++) {
+            if (state.posts[i].user_id === userId) {
+                state.posts[i].user.avatar = avatar;
+            }
         }
     }
 };

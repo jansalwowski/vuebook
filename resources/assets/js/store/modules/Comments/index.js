@@ -4,7 +4,7 @@ import {
     COMMENT_UPDATE,
     COMMENT_DELETE,
     COMMENT_LIKE,
-    COMMENT_UNLIKE, COMMENTS_CLEAR
+    COMMENT_UNLIKE, COMMENTS_CLEAR, SET_AVATAR
 } from "../../types";
 const state = {
     comments: []
@@ -82,6 +82,14 @@ const mutations = {
         if (comment) {
             comment.wasLiked = false;
             comment.likes_count--;
+        }
+    },
+
+    [SET_AVATAR] (state, {userId, avatar}) {
+        for (let i = 0; i < state.comments.length; i++) {
+            if (state.comments[i].user_id === userId) {
+                state.comments[i].user.avatar = avatar;
+            }
         }
     }
 };

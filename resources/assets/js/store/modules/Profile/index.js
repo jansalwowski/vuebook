@@ -1,6 +1,6 @@
 import {
-    CLEAR_PROFILE, GET_USER, FOLLOW_USER, UNFOLLOW_USER, SET_FOLLOWED, SET_IS_OWN_PROFILE, PROFILE_SET_COVER_PHOTO,
-    PROFILE_SET_AVATAR, FOLLOWING_FOLLOW, FOLLOWER_FOLLOW, FOLLOWING_UNFOLLOW, FOLLOWER_UNFOLLOW
+    CLEAR_PROFILE, GET_USER, FOLLOW_USER, UNFOLLOW_USER, SET_FOLLOWED, SET_IS_OWN_PROFILE, SET_COVER_PHOTO,
+    FOLLOWING_FOLLOW, FOLLOWER_FOLLOW, FOLLOWING_UNFOLLOW, FOLLOWER_UNFOLLOW, SET_AVATAR
 } from "../../types";
 const state = {
     user: {},
@@ -45,14 +45,14 @@ const mutations = {
         state.ownProfile = ownProfile;
     },
 
-    [PROFILE_SET_AVATAR] (state, avatar) {
-        if (state.user.hasOwnProperty('avatar')) {
+    [SET_AVATAR] (state, {userId, avatar}) {
+        if (state.user.id === userId && state.user.hasOwnProperty('avatar')) {
             state.user.avatar = avatar;
         }
     },
 
-    [PROFILE_SET_COVER_PHOTO] (state, cover) {
-        if (state.user.hasOwnProperty('cover')) {
+    [SET_COVER_PHOTO] (state, {userId, cover}) {
+        if (state.user.id === userId && state.user.hasOwnProperty('cover')) {
             state.user.cover = cover;
         }
     }
