@@ -42,11 +42,14 @@ class WallController extends ApiController
     private function transformPosts(Collection $posts)
     {
         $ids = $posts->pluck('id');
+        $likes = collect();
 
-        $likes = $this->user->likes()
-            ->whereIn('likeable_id', $ids)
-            ->where('likeable_type', 1)
-            ->pluck('likeable_id');
+        if ($this->user instanceof User) {
+            $likes = $this->user->likes()
+                ->whereIn('likeable_id', $ids)
+                ->where('likeable_type', 1)
+                ->pluck('likeable_id');
+        }
 
         $transformedPosts = $posts->map(function($post) use($likes) {
             $post->wasLiked = $likes->contains($post->id);

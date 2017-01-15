@@ -33,7 +33,7 @@
 \
 <script>
     import Vuetypeahead from 'vue-typeahead'
-    import Avatar from './Avatar.vue'
+    import Avatar from '../images/Avatar.vue'
 
     export default {
         extends: Vuetypeahead,

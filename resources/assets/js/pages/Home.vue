@@ -1,5 +1,8 @@
 <template>
-    <div class="container">
+    <div class="container home">
+
+        <h1 class="text-center home__heading">Vue<span class="text-muted"></span>book</h1>
+
         <div class="row">
             <div class="col-md-6">
                 <registration></registration>
@@ -11,19 +14,23 @@
     </div>
 </template>
 
-<style>
+<style lang="sass" rel="stylesheet/scss">
+
+    .home {
+        margin-top: -50px;
+
+        &__heading {
+            margin-bottom: 50px;
+        }
+    }
 
 </style>
 
-<script>
+<script type="text/babel">
     import Login from '../components/auth/Login.vue';
     import Registration from '../components/auth/Registration.vue';
 
     export default {
-        data() {
-            return {};
-        },
-
         components: {
             Login,
             Registration

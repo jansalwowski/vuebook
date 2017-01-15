@@ -16,7 +16,8 @@ class UsersWithPosts extends Seeder
         $faker = new Faker\Generator();
         $faker->addProvider(new Faker\Provider\Internet($faker));
 
-        factory(User::class, 20)
+        $usersToCreate = 100;
+        factory(User::class, $usersToCreate)
             ->create()
             ->each(function (User $user) use ($faker) {
                 $count = $faker->randomDigit;

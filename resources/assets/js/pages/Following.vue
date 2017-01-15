@@ -34,34 +34,40 @@
 
 <script type="text/babel">
     import UserProfileTop from '../components/panels/UserProfileTop.vue';
-    import Avatar from '../components/general/Avatar.vue';
+    import Avatar from '../components/images/Avatar.vue';
     import UserLink from '../components/general/UserLink.vue';
     import {mapGetters, mapActions, mapState} from "vuex";
 
     export default {
 
         created() {
-            this.clearProfile();
-            this.fetchUser();
-            this.fetchFollowing();
+            this.load();
         },
 
         methods: {
             ...mapActions([
                 'getProfile',
                 'clearProfile',
+                'clearFollowing',
                 'getFollowing',
                 'follow',
                 'unfollow',
                 'addToast'
             ]),
 
-            fetchUser() {
+            load() {
                 this.clearProfile();
+                this.fetchUser();
+                this.clearFollowing();
+                this.fetchFollowing();
+            },
+
+            fetchUser() {
                 this.getProfile(this.username)
                     .catch(response => {
                         console.log('error', response);
                     });
+
             },
 
             fetchFollowing() {
@@ -118,7 +124,7 @@
         },
 
         watch: {
-            '$route': 'fetchUser'
+            '$route': 'load'
         },
 
         components: {UserProfileTop, Avatar, UserLink}

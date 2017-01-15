@@ -1,4 +1,7 @@
-import {GET_FOLLOWING, GET_FOLLOWERS, FOLLOWER_FOLLOW, FOLLOWING_FOLLOW, FOLLOWER_UNFOLLOW, FOLLOWING_UNFOLLOW} from "../../types";
+import {
+    GET_FOLLOWING, GET_FOLLOWERS, FOLLOWER_FOLLOW, FOLLOWING_FOLLOW, FOLLOWER_UNFOLLOW, FOLLOWING_UNFOLLOW,
+    CLEAR_FOLLOWERS, CLEAR_FOLLOWING
+} from "../../types";
 const state = {
     following: [],
     followingCount: 0,
@@ -49,6 +52,16 @@ const mutations = {
         }
     },
 
+    [CLEAR_FOLLOWERS] (state) {
+        state.followers = [];
+        state.followersCount = 0;
+    },
+
+    [CLEAR_FOLLOWING] (state) {
+        state.following = [];
+        state.followingCount = 0;
+    }
+
 };
 
 const actions = {
@@ -90,6 +103,14 @@ const actions = {
                     reject(response.body);
                 })
         });
+    },
+
+    clearFollowers({commit}) {
+        commit(CLEAR_FOLLOWERS);
+    },
+
+    clearFollowing({commit}) {
+        commit(CLEAR_FOLLOWING);
     }
 };
 

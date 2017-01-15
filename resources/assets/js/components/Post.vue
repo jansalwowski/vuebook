@@ -127,7 +127,7 @@
 
 <script>
     import CommentsList from './comments/CommentsList.vue';
-    import Avatar from '../components/general/Avatar.vue';
+    import Avatar from './images/Avatar.vue';
     import UserLink from '../components/general/UserLink.vue';
     import dropdown from 'vue-strap/src/Dropdown.vue';
     import {mapGetters, mapActions} from 'vuex';

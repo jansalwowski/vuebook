@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div id="wrapper">
         <navbar v-if="check"></navbar>
 
-        <div class="content">
+        <div id="content" class="content">
             <router-view></router-view>
         </div>
 
@@ -17,8 +17,24 @@
 </template>
 
 <style>
+    html,
+    body {
+        margin:0;
+        padding:0;
+        height:100%;
+    }
+
+    #wrapper {
+        min-height:100%;
+        position:relative;
+    }
+
+    #content {
+        padding-bottom:133px; /* Height of the footer element */
+    }
+
     .content {
-        margin-top: 100px;
+        padding-top: 100px;
     }
 </style>
 

@@ -36,7 +36,7 @@
                         {{ user.followingCount }} <router-link :to="{name: 'following'}">Following</router-link>
                     </li>
                     <li class="profile__menu__list-item">
-                        <a href="#">Photos</a>
+                        <router-link :to="{name: 'photos'}">Photos</router-link>
                     </li>
                 </ul>
             </div>
@@ -188,7 +188,7 @@
 </style>
 
 <script type="text/babel">
-    import Avatar from '../general/Avatar.vue';
+    import Avatar from '../images/Avatar.vue';
     import AvatarModal from '../modals/AvatarModal.vue';
     import CoverPhotoModal from '../modals/CoverPhotoModal.vue';
     import {mapGetters, mapActions} from "vuex";

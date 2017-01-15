@@ -37,6 +37,26 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Follower
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $followed_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Models\User $user
+ * @property-read \App\Models\User $followed
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Follower whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Follower whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Follower whereFollowedId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Follower whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Follower whereUpdatedAt($value)
+ */
+	class Follower extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Like
  *
  * @property int $id
@@ -123,13 +143,14 @@ namespace App\Models{
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $verified_at
  * @property string $deleted_at
+ * @property string $cover
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Photo[] $photos
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $followers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $following
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $readNotifications
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $unreadNotifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
@@ -144,6 +165,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereVerifiedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCover($value)
  */
 	class User extends \Eloquent {}
 }

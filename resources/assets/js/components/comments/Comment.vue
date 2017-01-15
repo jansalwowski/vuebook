@@ -43,13 +43,13 @@
         }
         
         &__avatar {
-            display: inline-block;
-            float: left;
+            left: 15px;
+            position: absolute;
+            top: 5px;
         }
 
         &__body {
-            display: inline-block;
-            margin-left: 10px;
+            margin-left: 35px;
         }
 
         &__details {
@@ -78,7 +78,7 @@
 </style>
 
 <script type="text/babel">
-    import Avatar from '../general/Avatar.vue';
+    import Avatar from '../images/Avatar.vue';
     import UserLink from '../general/UserLink.vue';
     import Dropdown from 'vue-strap/src/Dropdown.vue';
     import {MODALS_COMMENT_SHOW_DELETE, MODALS_COMMENT_SHOW_UPDATE} from "../../store/types"; import {mapActions} from "vuex";

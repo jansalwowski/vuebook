@@ -68,7 +68,7 @@
 <script type="text/babel">
     import dropdown from 'vue-strap/src/Dropdown.vue';
     import typeahead from './typeahead.vue';
-    import Avatar from './Avatar.vue';
+    import Avatar from '../images/Avatar.vue';
     import UserLink from './UserLink.vue';
     import {mapState} from "vuex";
 

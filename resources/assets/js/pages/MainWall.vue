@@ -3,11 +3,6 @@
         <div class="row">
 
             <div class="col-md-2">
-                <div class="panel">
-                    <div class="panel-body">
-                        User Info
-                    </div>
-                </div>
             </div>
 
             <div class="col-md-10">

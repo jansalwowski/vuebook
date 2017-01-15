@@ -59,3 +59,30 @@ $factory->define(\App\Models\Post::class, function (Faker\Generator $faker) {
         'privacy_type' => \App\Models\Maps\PostsTableMap::PRIVACY_PUBLIC,
     ];
 });
+
+$factory->define(\App\Models\Comment::class, function (Faker\Generator $faker) {
+    return [
+        'body' => $faker->paragraph(rand(1, 10)),
+        'user_id' => function () use ($faker) {
+            $rand = $faker->numberBetween(0, 100);
+            $user = null;
+
+            if ($rand < 90) {
+                $user = \App\Models\User::orderByRaw('RANDOM()')->first();
+            }
+
+            return $user->id ?? factory(\App\Models\User::class)->create()->id;
+        },
+        'commentable_id' => function () use ($faker) {
+            $rand = $faker->numberBetween(0, 100);
+            $user = null;
+
+            if ($rand < 99) {
+                $user = \App\Models\Post::orderByRaw('RANDOM()')->first();
+            }
+
+            return $user->id ?? factory(\App\Models\Post::class)->create()->id;
+        },
+        'commentable_type' => 1
+    ];
+});
