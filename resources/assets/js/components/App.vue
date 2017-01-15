@@ -23,8 +23,8 @@
 </style>
 
 <script>
-    import Navbar from './Navbar.vue';
-    import AppFooter from './AppFooter.vue';
+    import Navbar from './general/Navbar.vue';
+    import AppFooter from './general/AppFooter.vue';
     import ToastManager from './utils/ToastManager.vue'
     import {mapGetters, mapActions} from 'vuex';
     import PostDeleteModal from './modals/PostDeleteModal.vue';

@@ -3,11 +3,18 @@
 
         <div class="row">
             <div class="col-md-6">
-                <avatar-panel :user="user"></avatar-panel>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Avatar
+                    </div>
+                    <div class="panel-body">
+                        <avatar-form></avatar-form>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-6">
-                <change-password-panel :user="user"></change-password-panel>
+                <change-password-panel></change-password-panel>
             </div>
 
             <div class="col-md-12">
@@ -17,7 +24,7 @@
                     </div>
                     <div class="panel-body">
 
-                        <cover-photo-panel></cover-photo-panel>
+                        <cover-photo-form></cover-photo-form>
                     </div>
                 </div>
             </div>
@@ -31,14 +38,14 @@
 </style>
 
 <script type="text/babel">
-    import AvatarPanel from '../components/AvatarPanel.vue';
-    import CoverPhotoForm from '../components/CoverPhotoForm.vue';
+    import AvatarForm from '../components/forms/AvatarForm.vue';
+    import CoverPhotoForm from '../components/forms/CoverPhotoForm.vue';
     import ChangePasswordPanel from '../components/panels/ChangePasswordPanel.vue';
     import {mapState} from "vuex";
 
     export default {
         components: {
-            AvatarPanel,
+            AvatarForm,
             CoverPhotoForm,
             ChangePasswordPanel
         },

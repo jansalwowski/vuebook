@@ -1,4 +1,7 @@
-import {CLEAR_PROFILE, GET_USER, FOLLOW_USER, UNFOLLOW_USER, SET_FOLLOWED, SET_IS_OWN_PROFILE, PROFILE_SET_COVER_PHOTO} from "../../types";
+import {
+    CLEAR_PROFILE, GET_USER, FOLLOW_USER, UNFOLLOW_USER, SET_FOLLOWED, SET_IS_OWN_PROFILE, PROFILE_SET_COVER_PHOTO,
+    PROFILE_SET_AVATAR, FOLLOWING_FOLLOW, FOLLOWER_FOLLOW, FOLLOWING_UNFOLLOW, FOLLOWER_UNFOLLOW
+} from "../../types";
 const state = {
     user: {},
     followed: false,
@@ -42,6 +45,12 @@ const mutations = {
         state.ownProfile = ownProfile;
     },
 
+    [PROFILE_SET_AVATAR] (state, avatar) {
+        if (state.user.hasOwnProperty('avatar')) {
+            state.user.avatar = avatar;
+        }
+    },
+
     [PROFILE_SET_COVER_PHOTO] (state, cover) {
         if (state.user.hasOwnProperty('cover')) {
             state.user.cover = cover;
@@ -66,36 +75,38 @@ const actions = {
         });
     },
 
-    follow({commit}, {username, onSuccess, onFailure}) {
-        Vue.http.post('users/' + username + '/follow')
-            .then((response) => {
-                commit(FOLLOW_USER);
+    follow({commit}, username) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post('users/' + username + '/follow')
+                .then((response) => {
+                    commit(FOLLOW_USER);
+                    commit(FOLLOWING_FOLLOW, username);
+                    commit(FOLLOWER_FOLLOW, username);
 
-                if (typeof onSuccess == 'function') {
-                    onSuccess(response);
-                }
-            })
-            .catch((response) => {
-                if (typeof onFailure == 'function') {
-                    onFailure(response);
-                }
-            });
+                    resolve(response.body);
+                })
+                .catch((response) => {
+                    reject(response.body);
+                });
+        });
     },
 
-    unfollow({commit}, {username, onSuccess, onFailure}) {
-        Vue.http.delete('users/' + username + '/unfollow')
-            .then((response) => {
-                commit(UNFOLLOW_USER);
+    unfollow({commit}, username) {
+        return new Promise((resolve, reject) => {
 
-                if (typeof onSuccess == 'function') {
-                    onSuccess(response);
-                }
-            })
-            .catch((response) => {
-                if (typeof onFailure == 'function') {
-                    onFailure(response);
-                }
-            });
+            Vue.http.delete('users/' + username + '/unfollow')
+                .then((response) => {
+                    commit(UNFOLLOW_USER);
+                    commit(FOLLOWING_UNFOLLOW, username, { root: true });
+                    commit(FOLLOWER_UNFOLLOW, username, { root: true });
+
+                    resolve(response.body);
+                })
+                .catch((response) => {
+                console.log(response);
+                    reject(response.body);
+                });
+        });
     },
 
     clearProfile({commit}) {

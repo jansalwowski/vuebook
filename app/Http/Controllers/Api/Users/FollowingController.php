@@ -17,19 +17,36 @@ class FollowingController extends ApiController
 
     public function index()
     {
-        $followingCount = $this->user->following()->count();
-        $following = $this->user->following;
-
-        return $this->responseSuccess([
-            'followingCount' => $followingCount,
-            'following' => $following,
-        ]);
+        return $this->show($this->user);
     }
 
     public function show(User $user)
     {
         $followingCount = $user->following()->count();
-        $following = $user->following;
+        $following = $user->following()
+            ->select([
+                'users.id', 'users.name', 'users.username', 'users.avatar'
+            ])
+            ->get();
+
+
+        if ($this->user instanceof User) {
+            $followingIds = $following->pluck('id');
+
+            $authUsersFollows = $this->user
+                ->following()
+                ->whereIn('users.id', $followingIds)
+                ->select('users.id')
+                ->get();
+        } else {
+            $authUsersFollows = collect([]);
+        }
+
+        $following = $following->map(function(User $f) use($authUsersFollows) {
+            $f->isFollowed = $authUsersFollows->contains($f->id);
+
+            return $f;
+        });
 
         return $this->responseSuccess([
             'followingCount' => $followingCount,

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import AuthModule from './modules/Auth';
 import CommentsModule from './modules/Comments';
+import FollowersModule from './modules/Followers';
 import ModalsModule from './modules/Modals';
 import PostsModule from './modules/Posts';
 import ProfileModule from './modules/Profile';
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     modules: {
         auth: AuthModule,
         comments: CommentsModule,
+        followers: FollowersModule,
         modals: ModalsModule,
         posts: PostsModule,
         profile: ProfileModule,

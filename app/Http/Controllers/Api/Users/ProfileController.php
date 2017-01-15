@@ -18,6 +18,8 @@ class ProfileController extends ApiController
     {
         $ownProfile = false;
         $followed = false;
+        $user->followingCount = $user->following()->count();
+        $user->followersCount = $user->followers()->count();
 
         if ($this->user instanceof User) {
             $ownProfile = $this->user->is($user);

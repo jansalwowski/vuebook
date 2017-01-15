@@ -15,7 +15,7 @@
     import InfiniteLoading from 'vue-infinite-loading';
     import {mapActions} from 'vuex';
     import {Toast} from "../Models/Toast";
-    import CreatePostPanel from '../components/CreatePostPanel.vue';
+    import CreatePostPanel from './panels/CreatePostPanel.vue';
 
     export default {
         data() {

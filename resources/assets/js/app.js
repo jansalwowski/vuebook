@@ -10,6 +10,8 @@ import {sync} from 'vuex-router-sync';
 import App from './components/App.vue';
 import router from './config/router'
 
+sync(store, router);
+
 Vue.use(VueResource);
 
 Vue.http.options.root = '/api';
@@ -39,7 +41,6 @@ Vue.http.interceptors.push((request, next ) => {
     });
 });
 
-sync(store, router);
 
 /* eslint-disable no-new */
 const myApp = new Vue({

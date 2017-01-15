@@ -2,13 +2,46 @@ import Vue from 'vue';
 import {CLIENT_ID, CLIENT_SECRET} from '../../../.env.js';
 import {
     AUTH_LOGOUT, AUTH_SET_TOKEN, AUTH_SET_USER, AUTH_USER_SET_AVATAR, AUTH_USER_SET_COVER_PHOTO,
-    PROFILE_SET_COVER_PHOTO
+    PROFILE_SET_COVER_PHOTO, PROFILE_SET_AVATAR
 } from '../../types';
 
 const state = {
     user: JSON.parse(localStorage.getItem('vuebook-user')),
     token: localStorage.getItem('vuebook-token'),
     authenticated: !!localStorage.getItem('vuebook-token')
+};
+
+const mutations = {
+    [AUTH_SET_TOKEN](state, token) {
+        state.token = token;
+        state.authenticated = true;
+
+        localStorage.setItem('vuebook-token', token);
+        Vue.http.headers.common['Authorization'] = 'Bearer ' + token;
+    },
+
+    [AUTH_SET_USER](state, user) {
+        state.user = user;
+
+        localStorage.setItem('vuebook-user', JSON.stringify(user));
+    },
+
+    [AUTH_LOGOUT](state) {
+        state.authenticated = false;
+        state.user = null;
+        state.token = null;
+
+        localStorage.removeItem('vuebook-token');
+        localStorage.removeItem('vuebook-user');
+    },
+
+    [AUTH_USER_SET_AVATAR] (state, avatar) {
+        state.user.avatar = avatar;
+    },
+
+    [AUTH_USER_SET_COVER_PHOTO] (state, cover) {
+        state.user.cover = cover;
+    }
 };
 
 const actions = {
@@ -67,20 +100,24 @@ const actions = {
             });
     },
 
-    changeAvatar({commit}, {data, onSuccess, onFailure}) {
-        Vue.http.post('avatars', data)
-            .then(response => {
-                commit(AUTH_USER_SET_AVATAR, response.body.avatar);
+    changeAvatar({commit, rootGetters}, data) {
+        return new Promise((resolve, reject) => {
 
-                if (typeof onSuccess == 'function') {
-                    onSuccess(response);
-                }
-            })
-            .catch(response => {
-                if (typeof onFailure == 'function') {
-                    onFailure(response);
-                }
-            });
+            Vue.http.post('avatars', data)
+                .then(response => {
+                    let avatar = response.body.avatar;
+                    commit(AUTH_USER_SET_AVATAR, avatar);
+
+                    if (rootGetters.isOwnProfile) {
+                        commit(PROFILE_SET_AVATAR, avatar);
+                    }
+
+                    resolve(response.body);
+                })
+                .catch(response => {
+                    reject(response.body);
+                });
+        });
     },
 
     changeCoverPhoto({commit, rootGetters}, data) {
@@ -135,39 +172,6 @@ const getters = {
 
     getUser(state) {
         return state.user;
-    }
-};
-
-const mutations = {
-    [AUTH_SET_TOKEN](state, token) {
-        state.token = token;
-        state.authenticated = true;
-
-        localStorage.setItem('vuebook-token', token);
-        Vue.http.headers.common['Authorization'] = 'Bearer ' + token;
-    },
-
-    [AUTH_SET_USER](state, user) {
-        state.user = user;
-
-        localStorage.setItem('vuebook-user', JSON.stringify(user));
-    },
-
-    [AUTH_LOGOUT](state) {
-        state.authenticated = false;
-        state.user = null;
-        state.token = null;
-
-        localStorage.removeItem('vuebook-token');
-        localStorage.removeItem('vuebook-user');
-    },
-
-    [AUTH_USER_SET_AVATAR] (state, avatar) {
-        state.user.avatar = avatar;
-    },
-
-    [AUTH_USER_SET_COVER_PHOTO] (state, cover) {
-        state.user.cover = cover;
     }
 };
 
