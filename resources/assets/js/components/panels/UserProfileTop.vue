@@ -27,7 +27,7 @@
             <div class="profile__menu">
                 <ul class="profile__menu__list">
                     <li class="profile__menu__list-item">
-                        <router-link :to="{name: 'user'}">Profile</router-link>
+                        <router-link :to="{name: 'user-wall'}">Profile</router-link>
                     </li>
                     <li class="profile__menu__list-item">
                         {{ user.followersCount }} <router-link :to="{name: 'followers'}">Followers</router-link>
@@ -36,7 +36,8 @@
                         {{ user.followingCount }} <router-link :to="{name: 'following'}">Following</router-link>
                     </li>
                     <li class="profile__menu__list-item">
-                        <router-link :to="{name: 'photos'}">Photos</router-link>
+                        <!--<router-link :to="{name: 'photos'}">Photos</router-link>-->
+                        <a href="#" @click.prevent="">Photos</a>
                     </li>
                 </ul>
             </div>
@@ -235,7 +236,7 @@
                             type: 'success'
                         });
                     });
-            },
+            }
         },
 
         computed: {

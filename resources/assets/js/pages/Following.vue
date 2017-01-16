@@ -1,22 +1,21 @@
 <template>
-    <div class="container user">
-        <user-profile-top :user="user"></user-profile-top>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Following ({{ followingCount }})
+        </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Following ({{ followingCount }})
-            </div>
-
-        	<div class="panel-body">
-                <div class="row">
-                    <div class="col-md-4" v-for="followingUser in following">
-                        <div class="following__user">
-                            <avatar :user="followingUser"></avatar> <user-link :user="followingUser"></user-link>
-                            <a href="#" @click.prevent="toggleFollow(followingUser)" class="btn btn-sm btn-default pull-right" v-if="showButton(followingUser)">{{ followingUser.isFollowed ? 'Unfollow' : 'Follow' }}</a>
-                        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4" v-for="followingUser in following">
+                    <div class="following__user">
+                        <avatar :user="followingUser"></avatar>
+                        <user-link :user="followingUser"></user-link>
+                        <a href="#" @click.prevent="toggleFollow(followingUser)"
+                           class="btn btn-sm btn-default pull-right" v-if="showButton(followingUser)">{{
+                            followingUser.isFollowed ? 'Unfollow' : 'Follow' }}</a>
                     </div>
                 </div>
-        	</div>
+            </div>
         </div>
     </div>
 </template>
@@ -33,21 +32,13 @@
 </style>
 
 <script type="text/babel">
-    import UserProfileTop from '../components/panels/UserProfileTop.vue';
     import Avatar from '../components/images/Avatar.vue';
     import UserLink from '../components/general/UserLink.vue';
     import {mapGetters, mapActions, mapState} from "vuex";
 
     export default {
-
-        created() {
-            this.load();
-        },
-
         methods: {
             ...mapActions([
-                'getProfile',
-                'clearProfile',
                 'clearFollowing',
                 'getFollowing',
                 'follow',
@@ -56,22 +47,12 @@
             ]),
 
             load() {
-                this.clearProfile();
-                this.fetchUser();
                 this.clearFollowing();
                 this.fetchFollowing();
             },
 
-            fetchUser() {
-                this.getProfile(this.username)
-                    .catch(response => {
-                        console.log('error', response);
-                    });
-
-            },
-
             fetchFollowing() {
-                this.getFollowing(this.username)
+                this.getFollowing(this.user.username)
                     .catch(response => {
                         console.log(response);
                     })
@@ -113,20 +94,14 @@
                 following: state => state.followers.following,
                 followingCount: state => state.followers.followingCount,
             }),
-
-            username() {
-                return this.$route.params.username;
-            },
-
-            loadWall() {
-                return this.user && this.user.hasOwnProperty('username');
-            }
         },
 
         watch: {
-            '$route': 'load'
+            user() {
+                this.load();
+            }
         },
 
-        components: {UserProfileTop, Avatar, UserLink}
+        components: {Avatar, UserLink}
     }
 </script>
