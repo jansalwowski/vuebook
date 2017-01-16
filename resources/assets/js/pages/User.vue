@@ -2,7 +2,10 @@
     <div class="container user">
         <user-profile-top :user="user"></user-profile-top>
 
-        <user-wall v-if="loadWall" :user="user"></user-wall>
+        <transition :name="transitionName" mode="out-in">
+        <!--<transition name="fade" mode="out-in">-->
+            <router-view class="child-view"></router-view>
+        </transition>
     </div>
 </template>
 
@@ -14,10 +17,14 @@
 
 <script type="text/babel">
     import UserProfileTop from '../components/panels/UserProfileTop.vue';
-    import UserWall from '../components/UserWall.vue';
     import {mapGetters, mapActions} from "vuex";
 
     export default {
+        data () {
+            return {
+                transitionName: 'slide-left'
+            }
+        },
 
         created() {
             this.clearProfile();
@@ -36,7 +43,7 @@
                     .catch(response => {
                         console.log('error', response);
                     });
-            },
+            }
         },
 
         computed: {
@@ -46,17 +53,21 @@
 
             username() {
                 return this.$route.params.username;
-            },
-
-            loadWall() {
-                return this.user && this.user.hasOwnProperty('username');
             }
         },
 
         watch: {
-            '$route': 'fetchUser'
+            '$route'(to, from) {
+                let routeUsername = to.params.username;
+                if (this.user.hasOwnProperty('username') && this.user.username !== routeUsername) {
+                    this.fetchUser();
+                }
+
+                const right = to.path.substring(to.path.length-1) === "/";
+                this.transitionName = right ? 'slide-right' : 'slide-left';
+            }
         },
 
-        components: {UserWall, UserProfileTop}
+        components: {UserProfileTop}
     }
 </script>

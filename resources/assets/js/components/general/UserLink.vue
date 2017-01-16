@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{name: 'user', params: {username: user.username}}">
+    <router-link :to="{name: 'user-wall', params: {username: user.username}}">
         <slot name="before" class="slot--inline"></slot>
         <span class="user-link__name">{{ user.name }}</span>
         <slot name="after"></slot>

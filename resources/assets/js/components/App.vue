@@ -3,7 +3,9 @@
         <navbar v-if="check"></navbar>
 
         <div id="content" class="content">
-            <router-view></router-view>
+            <transition name="fade" mode="out-in">
+                <router-view class="view"></router-view>
+            </transition>
         </div>
 
         <app-footer></app-footer>
@@ -16,7 +18,7 @@
     </div>
 </template>
 
-<style>
+<style lang="sass" rel="stylesheet/scss">
     html,
     body {
         margin:0;
@@ -36,9 +38,31 @@
     .content {
         padding-top: 100px;
     }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s ease;
+    }
+
+    .fade-enter, .fade-leave-active {
+        opacity: 0
+    }
+
+    .child-view {
+        transition: all .5s cubic-bezier(.55,0,.1,1);
+    }
+    .slide-left-enter, .slide-right-leave-active {
+        opacity: 0;
+        -webkit-transform: translate(100px, 0);
+        transform: translate(100px, 0);
+    }
+    .slide-left-leave-active, .slide-right-enter {
+        opacity: 0;
+        -webkit-transform: translate(-100px, 0);
+        transform: translate(-100px, 0);
+    }
 </style>
 
-<script>
+<script type="text/babel">
     import Navbar from './general/Navbar.vue';
     import AppFooter from './general/AppFooter.vue';
     import ToastManager from './utils/ToastManager.vue'
@@ -49,6 +73,12 @@
     import CommentUpdateModal from './modals/CommentUpdateModal.vue';
 
     export default {
+        data () {
+            return {
+                transitionName: 'slide-left'
+            }
+        },
+
         components: {
             Navbar,
             AppFooter,

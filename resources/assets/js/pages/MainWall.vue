@@ -6,7 +6,7 @@
             </div>
 
             <div class="col-md-10">
-                <user-wall></user-wall>
+                <wall></wall>
             </div>
         </div>
     </div>
@@ -14,11 +14,11 @@
 
 
 <script type="text/babel">
-    import UserWall from '../components/UserWall.vue';
+    import Wall from '../components/Wall.vue';
 
     export default {
         components: {
-            UserWall
+            Wall
         }
     }
 </script>
