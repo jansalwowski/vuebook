@@ -29,8 +29,6 @@
     </div>
 </template>
 
-
-\
 <script>
     import Vuetypeahead from 'vue-typeahead'
     import Avatar from '../images/Avatar.vue'
@@ -40,7 +38,7 @@
 
         data () {
             return {
-                src: 'http://localhost:8000/api/users/search?',
+                src: '/api/users/search?',
                 limit: 5,
                 minChars: 3,
                 queryParamName: 'term'
@@ -58,7 +56,6 @@
         }
     }
 </script>
-
 
 
 <style scoped>
