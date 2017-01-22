@@ -9,7 +9,7 @@
                 <div :class="['form-group', {'has-errors': form.errors.has('username')}]">
                     <label for="username"></label>
                     <input type="text" class="form-control" name="username" id="username" placeholder="Username"
-                           v-model="form.username">
+                           v-model.trim="form.username">
                     <span class="text-danger small" v-if="form.errors.has('username')"
                           v-text="form.errors.get('username')"></span>
                 </div>

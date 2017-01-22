@@ -5,21 +5,21 @@
 
                 <div :class="['form-group', {'has-error': form.errors.has('old_password')}]">
                     <label for="old_password">Current password</label>
-                    <input type="password" class="form-control" v-model="form.old_password" name="old_password"
+                    <input type="password" class="form-control" v-model.trim="form.old_password" name="old_password"
                            id="old_password" placeholder="Current password">
                     <span class="text-danger" v-if="form.errors.has('old_password')" v-text="form.errors.get('old_password')"></span>
                 </div>
 
                 <div :class="['form-group', {'has-error': form.errors.has('new_password')}]">
                     <label for="new_password">New password</label>
-                    <input type="password" class="form-control" v-model="form.new_password" name="new_password"
+                    <input type="password" class="form-control" v-model.trim="form.new_password" name="new_password"
                            id="new_password" placeholder="Current password">
                     <span class="text-danger" v-if="form.errors.has('new_password')" v-text="form.errors.get('new_password')"></span>
                 </div>
 
                 <div :class="['form-group', {'has-error': form.errors.has('new_password_confirmation')}]">
                     <label for="new_password_confirmation">Confirm new password</label>
-                    <input type="password" class="form-control" v-model="form.new_password_confirmation"
+                    <input type="password" class="form-control" v-model.trim="form.new_password_confirmation"
                            name="new_password_confirmation" id="new_password_confirmation"
                            placeholder="Current password">
                     <span class="text-danger" v-if="form.errors.has('new_password_confirmation')" v-text="form.errors.get('new_password_confirmation')"></span>

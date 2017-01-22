@@ -4,7 +4,7 @@
             <form method="post" role="form" @submit.prevent="submit" @keydown="form.errors.clear($event.target.name)">
 
                 <div :class="['form-group', {'has-error': form.errors.has('body')}]">
-                    <textarea v-model="form.body" name="body" rows="4" class="form-control"
+                    <textarea v-model.trim="form.body" name="body" rows="4" class="form-control"
                               placeholder="Write here your thoughts..."></textarea>
                 </div>
 

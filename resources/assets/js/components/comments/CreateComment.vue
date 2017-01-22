@@ -4,7 +4,7 @@
             <div :class="['form-group', {'has-error': form.errors.has('body')}]">
 
                 <div class="input-group">
-                    <input type="text" class="form-control" name="body" v-model="form.body"
+                    <input type="text" class="form-control" name="body" v-model.trim="form.body"
                            placeholder="Put your comment here" required autocomplete="off">
                     <span class="input-group-btn"><button class="btn btn-default" type="submit">Submit</button></span>
                 </div>

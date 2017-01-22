@@ -37,6 +37,11 @@
     import {mapGetters, mapActions, mapState} from "vuex";
 
     export default {
+
+        created() {
+            this.load();
+        },
+
         methods: {
             ...mapActions([
                 'clearFollowing',

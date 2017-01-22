@@ -7,7 +7,7 @@
                 <div :class="['form-group', {'has-error': form.errors.has('name')}]">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" name="name" id="name" placeholder="Name"
-                           v-model="form.name">
+                           v-model.trim="form.name">
                     <span class="text-danger small" v-if="form.errors.has('name')"
                           v-text="form.errors.get('name')"></span>
                 </div>
@@ -15,7 +15,7 @@
                 <div :class="['form-group', {'has-error': form.errors.has('username')}]">
                     <label for="username">Username</label>
                     <input type="text" class="form-control" name="username" id="username" placeholder="Username"
-                           v-model="form.username">
+                           v-model.trim="form.username">
                     <span class="text-danger small" v-if="form.errors.has('username')"
                           v-text="form.errors.get('username')"></span>
                 </div>
@@ -23,7 +23,7 @@
                 <div :class="['form-group', {'has-error': form.errors.has('email')}]">
                     <label for="email">E-mail</label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="E-mail"
-                           v-model="form.email">
+                           v-model.trim="form.email">
                     <span class="text-danger small" v-if="form.errors.has('email')"
                           v-text="form.errors.get('email')"></span>
                 </div>
