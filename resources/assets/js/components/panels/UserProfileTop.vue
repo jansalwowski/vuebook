@@ -35,10 +35,6 @@
                     <li class="profile__menu__list-item">
                         {{ user.followingCount }} <router-link :to="{name: 'following'}">Following</router-link>
                     </li>
-                    <li class="profile__menu__list-item">
-                        <!--<router-link :to="{name: 'photos'}">Photos</router-link>-->
-                        <a href="#" @click.prevent="">Photos</a>
-                    </li>
                 </ul>
             </div>
 
