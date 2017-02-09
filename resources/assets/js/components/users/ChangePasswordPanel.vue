@@ -43,7 +43,7 @@
 </style>
 
 <script type="text/babel">
-    import Form from "../../classes/Form";
+    import Form from "../../helpers/Form";
     import {AUTH_SET_TOKEN} from "../../store/types";
     import {mapActions} from "vuex";
 

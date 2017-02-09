@@ -33,7 +33,7 @@
 </style>
 
 <script type="text/babel">
-    import Form from "../../classes/Form";
+    import Form from "../../helpers/Form";
     import {mapActions} from 'vuex';
 
     export default {

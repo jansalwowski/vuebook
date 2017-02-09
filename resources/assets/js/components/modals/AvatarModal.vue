@@ -18,7 +18,7 @@
 
 <script type="text/babel">
     import Modal from 'vue-strap/src/Modal.vue';
-    import AvatarForm from '../forms/AvatarForm.vue';
+    import AvatarForm from '../images/AvatarForm.vue';
 
     export default {
         data() {

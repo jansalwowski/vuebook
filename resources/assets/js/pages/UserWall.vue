@@ -9,7 +9,7 @@
 </style>
 
 <script type="text/babel">
-    import Wall from '../components/Wall.vue';
+    import Wall from '../components/posts/Wall.vue';
     import {mapState} from "vuex";
 
     export default {

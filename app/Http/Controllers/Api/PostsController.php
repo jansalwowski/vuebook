@@ -9,16 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PostsController extends ApiController
 {
-
-    public function index()
-    {
-        $posts = Post::with(['user', 'target'])->limit(15)->get();
-
-        return $this->responseSuccess([
-            'posts' => $posts,
-        ]);
-    }
-
     public function store(CreatePostRequest $request)
     {
         $postData = $request->only([
@@ -35,11 +25,6 @@ class PostsController extends ApiController
         $post->likes_count = 0;
         $post->was_liked = false;
 
-        return $this->responseSuccess(['post' => $post]);
-    }
-
-    public function show(Post $post)
-    {
         return $this->responseSuccess(['post' => $post]);
     }
 

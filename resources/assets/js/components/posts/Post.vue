@@ -126,13 +126,12 @@
 </style>
 
 <script>
-    import CommentsList from './comments/CommentsList.vue';
-    import Avatar from './images/Avatar.vue';
-    import UserLink from '../components/general/UserLink.vue';
+    import CommentsList from '../comments/CommentsList.vue';
+    import Avatar from '../images/Avatar.vue';
+    import UserLink from '../general/UserLink.vue';
     import dropdown from 'vue-strap/src/Dropdown.vue';
     import {mapGetters, mapActions} from 'vuex';
-    import Form from "../classes/Form";
-    import {MODALS_POST_SHOW_DELETE, MODALS_POST_SHOW_UPDATE} from "../store/types";
+    import {MODALS_POST_SHOW_DELETE, MODALS_POST_SHOW_UPDATE} from "../../store/types";
 
     export default {
         data() {

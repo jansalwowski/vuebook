@@ -18,7 +18,6 @@ export default {
                 state.toasts.splice(index, 1);
             }
         }
-
     },
 
     actions: {
@@ -38,12 +37,6 @@ export default {
 
         removeToast({commit}, toast) {
             commit(types.REMOVE_TOAST, toast);
-        },
-    },
-
-    getters: {
-        getToastPosition(state, toast) {
-            return state.toasts.indexOf(toast);
         }
     }
 }

@@ -18,7 +18,7 @@
 
 <script type="text/babel">
     import Modal from 'vue-strap/src/Modal.vue';
-    import CoverPhotoForm from '../forms/CoverPhotoForm.vue';
+    import CoverPhotoForm from '../images/CoverPhotoForm.vue';
 
     export default {
         data() {

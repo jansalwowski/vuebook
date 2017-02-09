@@ -16,7 +16,7 @@
 </style>
 
 <script type="text/babel">
-    import UserProfileTop from '../components/panels/UserProfileTop.vue';
+    import UserProfileTop from '../components/users/UserProfileTop.vue';
     import {mapGetters, mapActions} from "vuex";
 
     export default {

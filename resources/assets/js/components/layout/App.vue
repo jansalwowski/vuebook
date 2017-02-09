@@ -63,14 +63,14 @@
 </style>
 
 <script type="text/babel">
-    import Navbar from './general/Navbar.vue';
-    import AppFooter from './general/AppFooter.vue';
-    import ToastManager from './utils/ToastManager.vue'
+    import Navbar from './Navbar.vue';
+    import AppFooter from './AppFooter.vue';
+    import ToastManager from '../general/ToastManager.vue'
     import {mapGetters, mapActions} from 'vuex';
-    import PostDeleteModal from './modals/PostDeleteModal.vue';
-    import PostUpdateModal from './modals/PostUpdateModal.vue';
-    import CommentDeleteModal from './modals/CommentDeleteModal.vue';
-    import CommentUpdateModal from './modals/CommentUpdateModal.vue';
+    import PostDeleteModal from '../modals/PostDeleteModal.vue';
+    import PostUpdateModal from '../modals/PostUpdateModal.vue';
+    import CommentDeleteModal from '../modals/CommentDeleteModal.vue';
+    import CommentUpdateModal from '../modals/CommentUpdateModal.vue';
 
     export default {
         data () {

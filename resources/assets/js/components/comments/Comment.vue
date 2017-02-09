@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <dropdown class="comment__options">
+        <dropdown class="comment__options" v-if="isOwnComment">
             <button slot="button" type="button" class="btn btn-xs comment__options__btn dropdown-toggle">
                 <i class="glyphicon glyphicon-pencil"></i>
             </button>
@@ -81,7 +81,9 @@
     import Avatar from '../images/Avatar.vue';
     import UserLink from '../general/UserLink.vue';
     import Dropdown from 'vue-strap/src/Dropdown.vue';
-    import {MODALS_COMMENT_SHOW_DELETE, MODALS_COMMENT_SHOW_UPDATE} from "../../store/types"; import {mapActions} from "vuex";
+    import {MODALS_COMMENT_SHOW_DELETE, MODALS_COMMENT_SHOW_UPDATE} from "../../store/types"; import {mapActions,
+        mapGetters
+    } from "vuex";
 
     export default {
         props: {
@@ -127,6 +129,15 @@
         },
 
         computed: {
+            ...mapGetters({
+                currentUser: 'getUser',
+                auth: 'check'
+            }),
+
+            isOwnComment() {
+                return this.auth && this.comment.user.id === this.currentUser.id;
+            },
+
             hasLikes() {
                 return this.comment.likes_count > 0;
             },

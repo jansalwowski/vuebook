@@ -38,9 +38,9 @@
 </style>
 
 <script type="text/babel">
-    import AvatarForm from '../components/forms/AvatarForm.vue';
-    import CoverPhotoForm from '../components/forms/CoverPhotoForm.vue';
-    import ChangePasswordPanel from '../components/panels/ChangePasswordPanel.vue';
+    import AvatarForm from '../components/images/AvatarForm.vue';
+    import CoverPhotoForm from '../components/images/CoverPhotoForm.vue';
+    import ChangePasswordPanel from '../components/users/ChangePasswordPanel.vue';
     import {mapState} from "vuex";
 
     export default {

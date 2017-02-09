@@ -29,7 +29,7 @@ const state = {
             id: null,
             show: false
         }
-    },
+    }
 };
 
 const mutations = {
@@ -72,9 +72,7 @@ const mutations = {
     [MODALS_COMMENT_HIDE_UPDATE] (state) {
         state.comments.update.id = null;
         state.comments.update.show = false;
-    },
-
-
+    }
 };
 
 export default {

@@ -7,14 +7,12 @@ import {
 
 const state = {
     user: JSON.parse(localStorage.getItem('vuebook-user')),
-    token: localStorage.getItem('vuebook-token'),
-    authenticated: !!localStorage.getItem('vuebook-token')
+    token: localStorage.getItem('vuebook-token')
 };
 
 const mutations = {
     [AUTH_SET_TOKEN](state, token) {
         state.token = token;
-        state.authenticated = true;
 
         localStorage.setItem('vuebook-token', token);
         Vue.http.headers.common['Authorization'] = 'Bearer ' + token;
@@ -27,7 +25,6 @@ const mutations = {
     },
 
     [AUTH_LOGOUT](state) {
-        state.authenticated = false;
         state.user = null;
         state.token = null;
 
@@ -83,21 +80,19 @@ const actions = {
         commit(AUTH_LOGOUT);
     },
 
-    register({commit}, {data, onSuccess, onFailure}) {
-        Vue.http.post('register', data)
-            .then(response => {
-                commit(AUTH_SET_TOKEN, response.body.access_token);
-                commit(AUTH_SET_USER, response.body.user);
+    register({commit}, data) {
+        return new  Promise( (resolve, reject) => {
+            Vue.http.post('register', data)
+                .then(response => {
+                    commit(AUTH_SET_TOKEN, response.body.access_token);
+                    commit(AUTH_SET_USER, response.body.user);
 
-                if (typeof onSuccess == 'function') {
-                    onSuccess(response);
-                }
-            })
-            .catch(response => {
-                if (typeof onFailure == 'function') {
-                    onFailure(response);
-                }
-            });
+                    resolve(response);
+                })
+                .catch(response => {
+                    reject(response);
+                })
+        });
     },
 
     changeAvatar({commit, getters}, data) {
@@ -152,8 +147,12 @@ const actions = {
 };
 
 const getters = {
-    check(state) {
-        return state.authenticated;
+    authenticated(state) {
+        return !! state.token;
+    },
+
+    check(state, getters) {
+        return getters.authenticated;
     },
 
     guest(state, getters) {

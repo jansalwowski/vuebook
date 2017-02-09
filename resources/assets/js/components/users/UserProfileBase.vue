@@ -10,7 +10,7 @@
 
 <script type="text/babel">
 
-    import UserProfileTop from '../components/panels/UserProfileTop.vue';
+    import UserProfileTop from '../users/UserProfileTop.vue';
     import {mapGetters, mapActions} from "vuex";
 
     export default {
@@ -44,7 +44,7 @@
 
             username() {
                 return this.$route.params.username;
-            },
+            }
         },
 
         watch: {

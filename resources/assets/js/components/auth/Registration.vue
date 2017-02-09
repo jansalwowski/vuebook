@@ -55,7 +55,7 @@
 </style>
 
 <script type="text/babel">
-    import Form from "../../classes/Form";
+    import Form from "../../helpers/Form";
     import {mapActions} from 'vuex';
 
     export default {
@@ -79,16 +79,16 @@
             submit() {
                 const data = this.form.getData();
 
-                this.register({
-                    data,
-                    onSuccess: (response) => {
+                this.register(data)
+                    .then(response => {
+                        console.log('test');
                         this.$router.replace('/');
-                    },
-                    onFailure: (response) => {
+                    })
+                    .catch(response => {
                         this.form.setErrors(response.body);
-                    }
-                });
+                    });
             }
         }
     }
 </script>
+

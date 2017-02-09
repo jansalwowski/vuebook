@@ -35,7 +35,7 @@
 
 <script>
     import VToast from './Toast.vue';
-    import {Toast} from "../../Models/Toast";
+    import {Toast} from "../../models/Toast";
     import {mapActions} from 'vuex';
 
     const defaultOptions = {

@@ -8,12 +8,6 @@ use Illuminate\Http\Response;
 
 class CommentsController extends ApiController
 {
-
-    public function show(Comment $comment)
-    {
-        return $this->responseSuccess($comment);
-    }
-
     public function update(Request $request, Comment $comment)
     {
         $comment->update($request->all());

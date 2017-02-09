@@ -31,7 +31,7 @@
     import {mapActions, mapGetters} from "vuex";
     import {MODALS_POST_HIDE_UPDATE} from '../../store/types';
     import Modal from 'vue-strap/src/Modal.vue';
-    import Form from "../../classes/Form";
+    import Form from "../../helpers/Form";
 
     export default {
         data() {

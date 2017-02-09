@@ -4,8 +4,6 @@ namespace App\Models;
 
 use App\Contracts\Commentable;
 use App\Contracts\Likeable;
-use App\Exceptions\Models\IncorrectPostPrivacyType;
-use App\Exceptions\Models\IncorrectPostType;
 use App\Models\Maps\PostsTableMap;
 use App\Models\Traits\HasComments;
 use App\Models\Traits\HasLikes;

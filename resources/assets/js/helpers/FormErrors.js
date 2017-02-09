@@ -1,7 +1,7 @@
 export default class FormErrors {
 
     constructor(errors = {}) {
-        this.errors = errors;
+        this.setErrors(errors);
     }
 
     get(field) {

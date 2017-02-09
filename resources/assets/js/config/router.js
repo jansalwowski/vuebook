@@ -10,7 +10,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    let authenticated = router.app.$store.state.auth.authenticated;
+    let authenticated = router.app.$store.getters.authenticated;
 
     if (to.path == '/logout') {
         router.app.$store.commit(AUTH_LOGOUT);

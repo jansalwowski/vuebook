@@ -39,9 +39,9 @@
 </style>
 
 <script type="text/babel">
-    import Form from "../../classes/Form";
+    import Form from "../../helpers/Form";
     import {mapActions, mapState} from 'vuex';
-    import {Toast} from "../../Models/Toast";
+    import {Toast} from "../../models/Toast";
 
 
     export default {
